@@ -1,4 +1,7 @@
 CATEGORIES
+type;
+statement;
+expression;
 
 NODES
 

@@ -27,31 +27,25 @@ statement
 	;
 
 expr
-	: expr '.' expr 
+	: expr '.' IDENT 
 	|expr '['expr']' 
-	| '('expr')'
 	| '<'tipo'>''('expr')'
 	| '!' expr
 	| expr ('*'|'/') expr
 	| expr ('+'|'-') expr
 	| expr ('<'|'>') expr
-	| expr ('=='|'<='|'>=') expr
+	| expr ('=='|'<='|'>=' |'!=') expr
 	| expr '&&' expr
 	| expr '||' expr
 	| IDENT '(' (expr(','expr)*)?')'
-	| INT_LITERAL | REAL_LITERAL | IDENT | array | CHAR_LITERAL
+	| '('expr')'
+	| INT_LITERAL | REAL_LITERAL | IDENT | CHAR_LITERAL
 	;
 	
 declaracion
 	: IDENT ':' tipo ';'
-	| IDENT ':' IDENT ';'
-	| IDENT ':' array ';'
 	;
 
-array
-	: ('['expr']')+ (tipo|IDENT)  
-	;
-	
 cuerpo_struct
 	: declaracion 
 	| funcion
@@ -65,4 +59,6 @@ tipo
 	: 'int'
 	| 'float'
 	| 'char'
+	| ('['expr']')+ (tipo|IDENT) 
+	| IDENT
 	;
