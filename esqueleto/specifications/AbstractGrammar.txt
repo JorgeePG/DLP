@@ -1,8 +1,51 @@
 CATEGORIES
-type;
 statement;
-expression;
+expr;
+tipo;
+cuerpoPrograma;
 
 NODES
 
-program -> ;
+program -> cuerpoPrograma*;
+
+structDefinition:cuerpoPrograma -> nombre:string atributos:varDefinition* metodos:function*;
+
+varDefinition:cuerpoPrograma -> declaracion;
+declaracion-> nombre:string tipo:tipo;
+
+function:cuerpoPrograma -> nombre:string parametros:declaracion* tipoRetorno:tipo cuerpo:statement*;
+
+// Statements
+print:statement -> expr*;
+printSp:statement -> expr*;
+printLn:statement -> expr*;
+asignacion:statement -> left:expr right:expr;
+return:statement -> expr?;
+oneExpr:statement -> expr;
+if:statement -> condition:expr thenBlock:statement* elseBlock:statement*;
+while:statement -> condition:expr body:statement*;
+read:statement -> expr;
+stmtVarDefinition:statement -> declaracion;
+
+// Expresiones
+fieldAccess:expr -> object:expr field:string;
+arrayAccess:expr -> array:expr index:expr;
+cast:expr ->tipo:tipo target:expr;
+not:expr -> expr;
+operacionAritmetica:expr -> left:expr operador:string right:expr;
+operacionLogica:expr -> left:expr operador:string right:expr;
+comparacion:expr -> left:expr operador:string right:expr;
+functionCall:expr -> nombre:string expr*;
+parentesis:expr -> expr;
+variable:expr -> nombre:string;
+intLiteral:expr -> int;
+realLiteral:expr -> float;
+charLiteral:expr -> char;
+
+// Tipos
+intType:tipo ->;
+floatType:tipo ->;
+charType:tipo ->;
+voidType:tipo ->;
+arrayType:tipo -> tipoBase:tipo size:expr;
+nomType:tipo -> nombre:string;

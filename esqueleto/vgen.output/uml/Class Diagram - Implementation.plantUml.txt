@@ -1,0 +1,242 @@
+' Generated with VGen 2.0.0
+
+@startuml
+
+class Position {
+    +int getLine()
+    +int getColumn()
+    +boolean lessThan(Position other)
+    +boolean greaterThan(Position other)
+}
+
+interface AST {
+    +updatePositions(Object... children)
+    +updatePositions(Position start, Position end)
+    +Object accept(Visitor visitor, Object param)
+}
+
+AST *-[#404040,thickness=1]- Position : start >
+AST *-[#404040,thickness=1]- Position : end >
+
+
+interface Statement {
+}
+AST <|-[#808080]- Statement
+abstract AbstractStatement
+Statement <|-[#808080]- AbstractStatement
+AbstractAST <|-[#808080]- AbstractStatement
+
+interface Expr {
+}
+AST <|-[#808080]- Expr
+abstract AbstractExpr
+Expr <|-[#808080]- AbstractExpr
+AbstractAST <|-[#808080]- AbstractExpr
+
+interface Tipo {
+}
+AST <|-[#808080]- Tipo
+abstract AbstractTipo
+Tipo <|-[#808080]- AbstractTipo
+AbstractAST <|-[#808080]- AbstractTipo
+
+interface CuerpoPrograma {
+}
+AST <|-[#808080]- CuerpoPrograma
+abstract AbstractCuerpoPrograma
+CuerpoPrograma <|-[#808080]- AbstractCuerpoPrograma
+AbstractAST <|-[#808080]- AbstractCuerpoPrograma
+
+interface AST {
+}
+abstract AbstractAST
+AST <|-[#808080]- AbstractAST
+
+class Program {
+}
+AbstractAST <|-[#808080]- Program
+Program o-[#404040,thickness=2]- "✱" CuerpoPrograma : cuerpoProgramas >
+
+class StructDefinition {
+	+String nombre
+}
+AbstractCuerpoPrograma <|-[#808080]- StructDefinition
+StructDefinition o-[#404040,thickness=2]- "✱" VarDefinition : atributos >
+StructDefinition o-[#404040,thickness=2]- "✱" Function : metodos >
+
+class VarDefinition {
+}
+AbstractCuerpoPrograma <|-[#808080]- VarDefinition
+VarDefinition o-[#404040,thickness=2]-  Declaracion : declaracion >
+
+class Declaracion {
+	+String nombre
+}
+AbstractAST <|-[#808080]- Declaracion
+Declaracion o-[#404040,thickness=2]-  Tipo : tipo >
+
+class Function {
+	+String nombre
+}
+AbstractCuerpoPrograma <|-[#808080]- Function
+Function o-[#404040,thickness=2]- "✱" Declaracion : parametros >
+Function o-[#404040,thickness=2]-  Tipo : tipoRetorno >
+Function o-[#404040,thickness=2]- "✱" Statement : cuerpo >
+
+class Print {
+}
+AbstractStatement <|-[#808080]- Print
+Print o-[#404040,thickness=2]- "✱" Expr : exprs >
+
+class PrintSp {
+}
+AbstractStatement <|-[#808080]- PrintSp
+PrintSp o-[#404040,thickness=2]- "✱" Expr : exprs >
+
+class PrintLn {
+}
+AbstractStatement <|-[#808080]- PrintLn
+PrintLn o-[#404040,thickness=2]- "✱" Expr : exprs >
+
+class Asignacion {
+}
+AbstractStatement <|-[#808080]- Asignacion
+Asignacion o-[#404040,thickness=2]-  Expr : left >
+Asignacion o-[#404040,thickness=2]-  Expr : right >
+
+class Return {
+}
+AbstractStatement <|-[#808080]- Return
+Return o-[#404040,thickness=2]- "0..1" Expr : expr >
+
+class OneExpr {
+}
+AbstractStatement <|-[#808080]- OneExpr
+OneExpr o-[#404040,thickness=2]-  Expr : expr >
+
+class If {
+}
+AbstractStatement <|-[#808080]- If
+If o-[#404040,thickness=2]-  Expr : condition >
+If o-[#404040,thickness=2]- "✱" Statement : thenBlock >
+If o-[#404040,thickness=2]- "✱" Statement : elseBlock >
+
+class While {
+}
+AbstractStatement <|-[#808080]- While
+While o-[#404040,thickness=2]-  Expr : condition >
+While o-[#404040,thickness=2]- "✱" Statement : body >
+
+class Read {
+}
+AbstractStatement <|-[#808080]- Read
+Read o-[#404040,thickness=2]-  Expr : expr >
+
+class StmtVarDefinition {
+}
+AbstractStatement <|-[#808080]- StmtVarDefinition
+StmtVarDefinition o-[#404040,thickness=2]-  Declaracion : declaracion >
+
+class FieldAccess {
+	+String field
+}
+AbstractExpr <|-[#808080]- FieldAccess
+FieldAccess o-[#404040,thickness=2]-  Expr : object >
+
+class ArrayAccess {
+}
+AbstractExpr <|-[#808080]- ArrayAccess
+ArrayAccess o-[#404040,thickness=2]-  Expr : array >
+ArrayAccess o-[#404040,thickness=2]-  Expr : index >
+
+class Cast {
+}
+AbstractExpr <|-[#808080]- Cast
+Cast o-[#404040,thickness=2]-  Tipo : tipo >
+Cast o-[#404040,thickness=2]-  Expr : target >
+
+class Not {
+}
+AbstractExpr <|-[#808080]- Not
+Not o-[#404040,thickness=2]-  Expr : expr >
+
+class OperacionAritmetica {
+	+String operador
+}
+AbstractExpr <|-[#808080]- OperacionAritmetica
+OperacionAritmetica o-[#404040,thickness=2]-  Expr : left >
+OperacionAritmetica o-[#404040,thickness=2]-  Expr : right >
+
+class OperacionLogica {
+	+String operador
+}
+AbstractExpr <|-[#808080]- OperacionLogica
+OperacionLogica o-[#404040,thickness=2]-  Expr : left >
+OperacionLogica o-[#404040,thickness=2]-  Expr : right >
+
+class Comparacion {
+	+String operador
+}
+AbstractExpr <|-[#808080]- Comparacion
+Comparacion o-[#404040,thickness=2]-  Expr : left >
+Comparacion o-[#404040,thickness=2]-  Expr : right >
+
+class FunctionCall {
+	+String nombre
+}
+AbstractExpr <|-[#808080]- FunctionCall
+FunctionCall o-[#404040,thickness=2]- "✱" Expr : exprs >
+
+class Parentesis {
+}
+AbstractExpr <|-[#808080]- Parentesis
+Parentesis o-[#404040,thickness=2]-  Expr : expr >
+
+class Variable {
+	+String nombre
+}
+AbstractExpr <|-[#808080]- Variable
+
+class IntLiteral {
+	+int intValue
+}
+AbstractExpr <|-[#808080]- IntLiteral
+
+class RealLiteral {
+	+float floatValue
+}
+AbstractExpr <|-[#808080]- RealLiteral
+
+class CharLiteral {
+	+char charValue
+}
+AbstractExpr <|-[#808080]- CharLiteral
+
+class IntType {
+}
+AbstractTipo <|-[#808080]- IntType
+
+class FloatType {
+}
+AbstractTipo <|-[#808080]- FloatType
+
+class CharType {
+}
+AbstractTipo <|-[#808080]- CharType
+
+class VoidType {
+}
+AbstractTipo <|-[#808080]- VoidType
+
+class ArrayType {
+}
+AbstractTipo <|-[#808080]- ArrayType
+ArrayType o-[#404040,thickness=2]-  Tipo : tipoBase >
+ArrayType o-[#404040,thickness=2]-  Expr : size >
+
+class NomType {
+	+String nombre
+}
+AbstractTipo <|-[#808080]- NomType
+
+@enduml
