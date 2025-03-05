@@ -366,8 +366,9 @@ public class GrammarParser extends Parser {
 		public ExprContext ex1;
 		public ExprContext ex2;
 		public ExprContext expr;
-		public StatementsContext statements;
+		public StatementsContext st1;
 		public StatementsContext st2;
+		public StatementsContext statements;
 		public DeclaracionContext declaracion() {
 			return getRuleContext(DeclaracionContext.class,0);
 		}
@@ -505,7 +506,7 @@ public class GrammarParser extends Parser {
 				setState(106);
 				match(T__1);
 				setState(107);
-				((StatementContext)_localctx).statements = statements();
+				((StatementContext)_localctx).st1 = statements();
 				setState(108);
 				match(T__2);
 				setState(115);
@@ -518,14 +519,14 @@ public class GrammarParser extends Parser {
 					setState(110);
 					match(T__1);
 					setState(111);
-					((StatementContext)_localctx).st2 = ((StatementContext)_localctx).statements = statements();
+					((StatementContext)_localctx).st2 = statements();
 					((StatementContext)_localctx).st = ((StatementContext)_localctx).st2.ast;
 					setState(113);
 					match(T__2);
 					}
 				}
 
-				 ((StatementContext)_localctx).ast =  new If(((StatementContext)_localctx).expr.ast, ((StatementContext)_localctx).statements.ast, _localctx.st); 
+				 ((StatementContext)_localctx).ast =  new If(((StatementContext)_localctx).expr.ast, ((StatementContext)_localctx).st1.ast, _localctx.st); 
 				}
 				break;
 			case 9:

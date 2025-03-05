@@ -22,7 +22,7 @@ printLn:statement -> expr*;
 asignacion:statement -> left:expr right:expr;
 return:statement -> expr?;
 oneExpr:statement -> expr;
-if:statement -> condition:expr thenBlock:statement* elseBlock:statement*;
+if:statement -> condition:expr thenBlock:statement* elseBlock:statement*; //Mirar lo de que si hay un else que sean iguales el then block y el esle block
 while:statement -> condition:expr body:statement*;
 read:statement -> expr;
 stmtVarDefinition:statement -> declaracion;
