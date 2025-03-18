@@ -2,6 +2,7 @@
 
 package ast.tipo;
 
+import ast.cuerpoprograma.*;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -14,6 +15,9 @@ import visitor.Visitor;
 /*
 	nomType: tipo -> nombre:string
 	tipo -> 
+	
+	PHASE Identification
+	nomType -> structDefinition:structDefinition
 */
 public class NomType extends AbstractTipo  {
 
@@ -22,6 +26,9 @@ public class NomType extends AbstractTipo  {
 
 	// nomType: tipo -> nombre:string
 	private String nombre;
+
+    // PHASE Identification
+	private StructDefinition structDefinition;
 
     // ----------------------------------
     // Constructors
@@ -61,6 +68,24 @@ public class NomType extends AbstractTipo  {
 
     public String getNombre() {
         return nombre;
+    }
+
+
+
+    // --------------------------------
+    // PHASE Identification
+
+	// Attribute 'structDefinition' 
+
+	public void setStructDefinition(StructDefinition structDefinition) {
+		if (structDefinition == null)
+			throw new IllegalArgumentException("Parameter 'structDefinition' can't be null. Pass a non-null value or use 'structDefinition?' in the abstract grammar");
+		this.structDefinition = structDefinition;
+
+	}
+
+    public StructDefinition getStructDefinition() {
+        return structDefinition;
     }
 
 

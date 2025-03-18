@@ -33,24 +33,8 @@ tipo returns[Tipo ast]
     |                                     { $ast = new FloatType(); }                            
     |                                     { $ast = new CharType(); }                             
     |                                     { $ast = new VoidType(); }                             
-    | tipo expr                           { $ast = new ArrayType($tipo.ast, $expr.ast); }        
+    | tipo INT_LITERAL                    { $ast = new ArrayType($tipo.ast, $INT_LITERAL); }     
     | nombre=IDENT                        { $ast = new NomType($nombre); }                       
-	;
-
-expr returns[Expr ast]
-    : expr field=IDENT                    { $ast = new FieldAccess($expr.ast, $field); }         
-    | array=expr index=expr               { $ast = new ArrayAccess($array.ast, $index.ast); }    
-    | tipo expr                           { $ast = new Cast($tipo.ast, $expr.ast); }             
-    | expr                                { $ast = new Not($expr.ast); }                         
-    | left=expr operador=IDENT right=expr { $ast = new OperacionAritmetica($left.ast, $operador, $right.ast); }
-    | left=expr operador=IDENT right=expr { $ast = new OperacionLogica($left.ast, $operador, $right.ast); }
-    | left=expr operador=IDENT right=expr { $ast = new Comparacion($left.ast, $operador, $right.ast); }
-    | nombre=IDENT exprs+=expr*           { $ast = new FunctionCall($nombre, $exprs); }          
-    | expr                                { $ast = new Parentesis($expr.ast); }                  
-    | nombre=IDENT                        { $ast = new Variable($nombre); }                      
-    | INT_LITERAL                         { $ast = new IntLiteral($INT_LITERAL); }               
-    | FLOAT_LITERAL                       { $ast = new RealLiteral($FLOAT_LITERAL); }            
-    | CHAR_LITERAL                        { $ast = new CharLiteral($CHAR_LITERAL); }             
 	;
 
 function returns[Function ast]
@@ -68,6 +52,22 @@ statement returns[Statement ast]
     | expr body+=statement*               { $ast = new While($expr.ast, $body); }                
     | expr                                { $ast = new Read($expr.ast); }                        
     | declaracion                         { $ast = new StmtVarDefinition($declaracion.ast); }    
+	;
+
+expr returns[Expr ast]
+    : expr field=IDENT                    { $ast = new FieldAccess($expr.ast, $field); }         
+    | array=expr index=expr               { $ast = new ArrayAccess($array.ast, $index.ast); }    
+    | tipo expr                           { $ast = new Cast($tipo.ast, $expr.ast); }             
+    | expr                                { $ast = new Not($expr.ast); }                         
+    | left=expr operador=IDENT right=expr { $ast = new OperacionAritmetica($left.ast, $operador, $right.ast); }
+    | left=expr operador=IDENT right=expr { $ast = new OperacionLogica($left.ast, $operador, $right.ast); }
+    | left=expr operador=IDENT right=expr { $ast = new Comparacion($left.ast, $operador, $right.ast); }
+    | nombre=IDENT exprs+=expr*           { $ast = new FunctionCall($nombre, $exprs); }          
+    | expr                                { $ast = new Parentesis($expr.ast); }                  
+    | nombre=IDENT                        { $ast = new Variable($nombre); }                      
+    | INT_LITERAL                         { $ast = new IntLiteral($INT_LITERAL); }               
+    | FLOAT_LITERAL                       { $ast = new RealLiteral($FLOAT_LITERAL); }            
+    | CHAR_LITERAL                        { $ast = new CharLiteral($CHAR_LITERAL); }             
 	;
 
 

@@ -11,7 +11,6 @@ import org.antlr.v4.runtime.*;
 
 import ast.*;
 import visitor.*;
-
 import parser.*;
 import semantic.*;
 import codegeneration.*;
@@ -28,7 +27,7 @@ import codegeneration.*;
  */
 
 public class Main {
-    public static final String TEST_FILE = "ejemplo.txt"; // Used only in development
+    public static final String TEST_FILE = "4. Todo junto.txt"; // Used only in development
     public static final String OUTPUT_FILE = "output.txt";
 
     public static void main(String[] args) throws Exception {
@@ -58,7 +57,6 @@ public class Main {
         // IMPORTANT: When the AST has been generated, swap the following two lines of code.
         //parser.program();
         ast = parser.program().ast;
-
         
         if (parser.getNumberOfSyntaxErrors() > 0) { // Syntax error detected (ANTLR omits lexical errors)
             errorManager.notify("Compilaton finished due to syntax errors.");

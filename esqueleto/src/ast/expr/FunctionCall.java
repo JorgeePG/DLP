@@ -2,6 +2,7 @@
 
 package ast.expr;
 
+import ast.cuerpoprograma.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -17,6 +18,9 @@ import visitor.Visitor;
 /*
 	functionCall: expr -> nombre:string exprs:expr*
 	expr -> 
+	
+	PHASE Identification
+	functionCall -> function:function
 */
 public class FunctionCall extends AbstractExpr  {
 
@@ -26,6 +30,9 @@ public class FunctionCall extends AbstractExpr  {
 	// functionCall: expr -> nombre:string expr*
 	private String nombre;
 	private List<Expr> exprs;
+
+    // PHASE Identification
+	private Function function;
 
     // ----------------------------------
     // Constructors
@@ -88,6 +95,24 @@ public class FunctionCall extends AbstractExpr  {
 
     public Stream<Expr> exprs() {
         return exprs.stream();
+    }
+
+
+
+    // --------------------------------
+    // PHASE Identification
+
+	// Attribute 'function' 
+
+	public void setFunction(Function function) {
+		if (function == null)
+			throw new IllegalArgumentException("Parameter 'function' can't be null. Pass a non-null value or use 'function?' in the abstract grammar");
+		this.function = function;
+
+	}
+
+    public Function getFunction() {
+        return function;
     }
 
 

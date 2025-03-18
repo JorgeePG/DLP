@@ -257,7 +257,6 @@ public class DefaultVisitor implements Visitor {
 	public Object visit(ArrayType arrayType, Object param) {
 
 		arrayType.getTipoBase().accept(this, param);
-		arrayType.getSize().accept(this, param);
 		return null;
 	}
 

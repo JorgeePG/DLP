@@ -186,6 +186,7 @@ class FunctionCall {
 }
 AbstractExpr <|-[#808080]- FunctionCall
 FunctionCall o-[#404040,thickness=2]- "✱" Expr : exprs >
+FunctionCall -[#ff6600,thickness=3]-  Function #text:ff6600 : function >
 
 class Parentesis {
 }
@@ -196,6 +197,7 @@ class Variable {
 	+String nombre
 }
 AbstractExpr <|-[#808080]- Variable
+Variable -[#ff6600,thickness=3]-  Declaracion #text:ff6600 : declaracion >
 
 class IntLiteral {
 	+int intValue
@@ -229,14 +231,15 @@ class VoidType {
 AbstractTipo <|-[#808080]- VoidType
 
 class ArrayType {
+	+int intValue
 }
 AbstractTipo <|-[#808080]- ArrayType
 ArrayType o-[#404040,thickness=2]-  Tipo : tipoBase >
-ArrayType o-[#404040,thickness=2]-  Expr : size >
 
 class NomType {
 	+String nombre
 }
 AbstractTipo <|-[#808080]- NomType
+NomType -[#ff6600,thickness=3]-  StructDefinition #text:ff6600 : structDefinition >
 
 @enduml

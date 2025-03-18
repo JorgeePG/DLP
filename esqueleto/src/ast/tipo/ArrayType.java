@@ -2,7 +2,7 @@
 
 package ast.tipo;
 
-import ast.expr.*;
+import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -12,7 +12,7 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	arrayType: tipo -> tipoBase:tipo size:expr
+	arrayType: tipo -> tipoBase:tipo intValue:int
 	tipo -> 
 */
 public class ArrayType extends AbstractTipo  {
@@ -20,44 +20,47 @@ public class ArrayType extends AbstractTipo  {
     // ----------------------------------
     // Instance Variables
 
-	// arrayType: tipo -> tipoBase:tipo size:expr
+	// arrayType: tipo -> tipoBase:tipo int
 	private Tipo tipoBase;
-	private Expr size;
+	private int intValue;
 
     // ----------------------------------
     // Constructors
 
-	public ArrayType(Tipo tipoBase, Expr size) {
+	public ArrayType(Tipo tipoBase, int intValue) {
 		super();
 
 		if (tipoBase == null)
 			throw new IllegalArgumentException("Parameter 'tipoBase' can't be null. Pass a non-null value or use 'tipo?' in the abstract grammar");
 		this.tipoBase = tipoBase;
 
-		if (size == null)
-			throw new IllegalArgumentException("Parameter 'size' can't be null. Pass a non-null value or use 'expr?' in the abstract grammar");
-		this.size = size;
+		this.intValue = intValue;
 
-		updatePositions(tipoBase, size);
+		updatePositions(tipoBase, intValue);
 	}
 
-	public ArrayType(Object tipoBase, Object size) {
+	public ArrayType(Object tipoBase, Object intValue) {
 		super();
 
         if (tipoBase == null)
             throw new IllegalArgumentException("Parameter 'tipoBase' can't be null. Pass a non-null value or use 'tipo?' in the abstract grammar");
 		this.tipoBase = (Tipo) tipoBase;
 
-        if (size == null)
-            throw new IllegalArgumentException("Parameter 'size' can't be null. Pass a non-null value or use 'expr?' in the abstract grammar");
-		this.size = (Expr) size;
+        if (intValue == null)
+            throw new IllegalArgumentException("Parameter 'intValue' can't be null. Pass a non-null value or use 'int?' in the abstract grammar");
+        var intValue_temp = intValue;
+        if (intValue_temp instanceof Token)
+            intValue_temp = ((Token) intValue_temp).getText();
+        if (intValue_temp instanceof String)
+            intValue_temp = Integer.valueOf((String) intValue_temp);
+        this.intValue = (int) intValue_temp;
 
-		updatePositions(tipoBase, size);
+		updatePositions(tipoBase, intValue);
 	}
 
 
     // ----------------------------------
-    // arrayType: tipo -> tipoBase:tipo size:expr
+    // arrayType: tipo -> tipoBase:tipo int
 
 	// Child 'tipoBase:tipo' 
 
@@ -73,17 +76,15 @@ public class ArrayType extends AbstractTipo  {
     }
 
 
-	// Child 'size:expr' 
+	// Child 'int' 
 
-	public void setSize(Expr size) {
-		if (size == null)
-			throw new IllegalArgumentException("Parameter 'size' can't be null. Pass a non-null value or use 'expr?' in the abstract grammar");
-		this.size = size;
+	public void setIntValue(int intValue) {
+		this.intValue = intValue;
 
 	}
 
-    public Expr getSize() {
-        return size;
+    public int getIntValue() {
+        return intValue;
     }
 
 
@@ -97,7 +98,7 @@ public class ArrayType extends AbstractTipo  {
 
     @Override
     public String toString() {
-        return "ArrayType{" + " tipoBase=" + this.getTipoBase() + " size=" + this.getSize() + "}";
+        return "ArrayType{" + " tipoBase=" + this.getTipoBase() + " intValue=" + this.getIntValue() + "}";
     }
 
 

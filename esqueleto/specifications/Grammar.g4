@@ -81,6 +81,6 @@ tipo returns [Tipo ast]
 	| 'float' 										{ $ast = new FloatType(); }
 	| 'char' 										{ $ast = new CharType(); }
 	| 'void' 										{ $ast = new VoidType(); }
-	| ('['expr']')+ tipo 							{ $ast = new ArrayType( $tipo.ast,$expr.ast); }
+	| ('['INT_LITERAL']') tipo 						{ $ast = new ArrayType( $tipo.ast,$INT_LITERAL); }
 	| IDENT 										{ $ast = new NomType($IDENT ); }
 	;

@@ -2,6 +2,7 @@
 
 package ast.expr;
 
+import ast.*;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -14,6 +15,9 @@ import visitor.Visitor;
 /*
 	variable: expr -> nombre:string
 	expr -> 
+	
+	PHASE Identification
+	variable -> declaracion:declaracion
 */
 public class Variable extends AbstractExpr  {
 
@@ -22,6 +26,9 @@ public class Variable extends AbstractExpr  {
 
 	// variable: expr -> nombre:string
 	private String nombre;
+
+    // PHASE Identification
+	private Declaracion declaracion;
 
     // ----------------------------------
     // Constructors
@@ -61,6 +68,24 @@ public class Variable extends AbstractExpr  {
 
     public String getNombre() {
         return nombre;
+    }
+
+
+
+    // --------------------------------
+    // PHASE Identification
+
+	// Attribute 'declaracion' 
+
+	public void setDeclaracion(Declaracion declaracion) {
+		if (declaracion == null)
+			throw new IllegalArgumentException("Parameter 'declaracion' can't be null. Pass a non-null value or use 'declaracion?' in the abstract grammar");
+		this.declaracion = declaracion;
+
+	}
+
+    public Declaracion getDeclaracion() {
+        return declaracion;
     }
 
 

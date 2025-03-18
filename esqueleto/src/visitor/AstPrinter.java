@@ -421,7 +421,8 @@ public class AstPrinter implements Visitor {
         printListOfNodesChild(indent + 1, "exprs", "List<Expr>", functionCall.getExprs());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, functionCall, "nombre", "exprs");
+        printToString(indent + 1, "vgen-attribute-phase-0", "function", "Function", functionCall.getFunction());
+		printUnknownFields(indent + 1, functionCall, "nombre", "exprs", "function");
 		return null;
 	}
 
@@ -447,7 +448,8 @@ public class AstPrinter implements Visitor {
         printNonNodeChild(indent + 1, "nombre", "String", variable.getNombre());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, variable, "nombre");
+        printToString(indent + 1, "vgen-attribute-phase-0", "declaracion", "Declaracion", variable.getDeclaracion());
+		printUnknownFields(indent + 1, variable, "nombre", "declaracion");
 		return null;
 	}
 
@@ -545,10 +547,10 @@ public class AstPrinter implements Visitor {
 
 		// Imprimir los hijos (y recorrer si son nodos del AST)
         printNodeChild(indent + 1, "tipoBase", "Tipo", arrayType.getTipoBase());
-        printNodeChild(indent + 1, "size", "Expr", arrayType.getSize());
+        printNonNodeChild(indent + 1, "intValue", "int", arrayType.getIntValue());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, arrayType, "tipoBase", "size");
+		printUnknownFields(indent + 1, arrayType, "tipoBase", "intValue");
 		return null;
 	}
 
@@ -561,7 +563,8 @@ public class AstPrinter implements Visitor {
         printNonNodeChild(indent + 1, "nombre", "String", nomType.getNombre());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, nomType, "nombre");
+        printToString(indent + 1, "vgen-attribute-phase-0", "structDefinition", "StructDefinition", nomType.getStructDefinition());
+		printUnknownFields(indent + 1, nomType, "nombre", "structDefinition");
 		return null;
 	}
 

@@ -47,5 +47,14 @@ intType:tipo ->;
 floatType:tipo ->;
 charType:tipo ->;
 voidType:tipo ->;
-arrayType:tipo -> tipoBase:tipo size:expr;
+arrayType:tipo -> tipoBase:tipo int;
 nomType:tipo -> nombre:string;
+
+
+// -----------------------
+ATTRIBUTE GRAMMAR Identification
+
+variable -> declaracion; 
+functionCall ->function;
+nomType ->structDefinition;
+
