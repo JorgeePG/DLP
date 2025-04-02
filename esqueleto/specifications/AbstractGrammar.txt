@@ -22,10 +22,11 @@ printLn:statement -> expr*;
 asignacion:statement -> left:expr right:expr;
 return:statement -> expr?;
 oneExpr:statement -> expr;
-if:statement -> condition:expr thenBlock:statement* elseBlock:statement*; //Mirar lo de que si hay un else que sean iguales el then block y el esle block
+if:statement -> condition:expr thenBlock:statement* elseBlock:statement*; 
 while:statement -> condition:expr body:statement*;
 read:statement -> expr;
 stmtVarDefinition:statement -> declaracion;
+stmtFunctionCall:statement -> nombre:string expr*;
 
 // Expresiones
 fieldAccess:expr -> object:expr field:string;
@@ -56,5 +57,13 @@ ATTRIBUTE GRAMMAR Identification
 
 variable -> declaracion; 
 functionCall ->function;
+stmtFunctionCall ->function;
 nomType ->structDefinition;
+
+// -----------------------
+ATTRIBUTE GRAMMAR TypeChecking
+
+expr -> type:tipo;
+expr -> lvalue:boolean;
+statement -> [inherited] padre:function;
 

@@ -233,6 +233,19 @@ public class Identification extends DefaultVisitor {
 		return null;
 	}
 
+	// class StmtFunctionCall(String nombre, List<Expr> exprs)
+	// phase Identification { Function function }
+	@Override
+	public Object visit(StmtFunctionCall stmtFunctionCall, Object param) {
+
+		// stmtFunctionCall.getExprs().forEach(expr -> expr.accept(this, param));
+		super.visit(stmtFunctionCall, param);
+
+		// TODO: Remember to initialize SYNTHESIZED attributes <-----
+		// stmtFunctionCall.setFunction(?);
+		return null;
+	}
+
 	// class FieldAccess(Expr object, String field)
 	@Override
 	public Object visit(FieldAccess fieldAccess, Object param) {

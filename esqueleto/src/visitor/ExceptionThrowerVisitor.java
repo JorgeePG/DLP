@@ -113,6 +113,12 @@ public class ExceptionThrowerVisitor implements Visitor {
 	}
 
 	@Override
+	public Object visit(StmtFunctionCall stmtFunctionCall, Object param) {
+
+        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(StmtFunctionCall)' has been invoked but it has not been implemented.");
+	}
+
+	@Override
 	public Object visit(FieldAccess fieldAccess, Object param) {
 
         throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(FieldAccess)' has been invoked but it has not been implemented.");

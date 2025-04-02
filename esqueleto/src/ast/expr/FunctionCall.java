@@ -2,6 +2,7 @@
 
 package ast.expr;
 
+import ast.tipo.*;
 import ast.cuerpoprograma.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -21,6 +22,10 @@ import visitor.Visitor;
 	
 	PHASE Identification
 	functionCall -> function:function
+	
+	PHASE TypeChecking
+	expr -> type:tipo
+	expr -> lvalue:boolean
 */
 public class FunctionCall extends AbstractExpr  {
 

@@ -52,6 +52,7 @@ statement returns[Statement ast]
     | expr body+=statement*               { $ast = new While($expr.ast, $body); }                
     | expr                                { $ast = new Read($expr.ast); }                        
     | declaracion                         { $ast = new StmtVarDefinition($declaracion.ast); }    
+    | nombre=IDENT exprs+=expr*           { $ast = new StmtFunctionCall($nombre, $exprs); }      
 	;
 
 expr returns[Expr ast]

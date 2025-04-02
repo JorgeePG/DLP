@@ -3,6 +3,7 @@
 package ast.statement;
 
 import ast.expr.*;
+import ast.cuerpoprograma.*;
 import java.util.Optional;
 import visitor.Visitor;
 
@@ -15,6 +16,9 @@ import visitor.Visitor;
 /*
 	return: statement -> expr:expr?
 	statement -> 
+	
+	PHASE TypeChecking
+	statement -> padre:function
 */
 public class Return extends AbstractStatement  {
 

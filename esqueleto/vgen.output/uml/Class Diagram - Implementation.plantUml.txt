@@ -25,13 +25,17 @@ AST <|-[#808080]- Statement
 abstract AbstractStatement
 Statement <|-[#808080]- AbstractStatement
 AbstractAST <|-[#808080]- AbstractStatement
+Statement -[#3366cc,thickness=3]-  Function #text:3366cc : padre >
 
 interface Expr {
+	..<color:#3366cc> TypeChecking </color>..
+	+<color:#3366cc>boolean lvalue</color>
 }
 AST <|-[#808080]- Expr
 abstract AbstractExpr
 Expr <|-[#808080]- AbstractExpr
 AbstractAST <|-[#808080]- AbstractExpr
+Expr -[#3366cc,thickness=3]-  Tipo #text:3366cc : type >
 
 interface Tipo {
 }
@@ -136,6 +140,13 @@ class StmtVarDefinition {
 }
 AbstractStatement <|-[#808080]- StmtVarDefinition
 StmtVarDefinition o-[#404040,thickness=2]-  Declaracion : declaracion >
+
+class StmtFunctionCall {
+	+String nombre
+}
+AbstractStatement <|-[#808080]- StmtFunctionCall
+StmtFunctionCall o-[#404040,thickness=2]- "✱" Expr : exprs >
+StmtFunctionCall -[#ff6600,thickness=3]-  Function #text:ff6600 : function >
 
 class FieldAccess {
 	+String field

@@ -3,6 +3,7 @@
 package ast.statement;
 
 import ast.*;
+import ast.cuerpoprograma.*;
 
 // %% User Declarations -------------
 
@@ -12,10 +13,22 @@ import ast.*;
 
 /*
 	statement -> 
+	
+	PHASE TypeChecking
+	statement -> padre:function
 */
 public interface Statement extends AST {
 
 
+
+
+    // --------------------------------
+    // PHASE TypeChecking
+
+	// Attribute 'padre:function' 
+
+	public void setPadre(Function padre);
+	public Function getPadre();
 
 
     // %% User Members -------------------------

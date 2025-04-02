@@ -6,6 +6,7 @@ import ast.cuerpoprograma.StructDefinition;
 import ast.expr.FunctionCall;
 import ast.expr.Variable;
 import ast.statement.If;
+import ast.statement.StmtFunctionCall;
 import ast.statement.While;
 import ast.tipo.NomType;
 import main.ErrorManager;
@@ -103,6 +104,10 @@ public class Identification extends DefaultVisitor {
  		variables.reset();
  		return null;
  	}
+ 	
+ 	
+ 	
+ 	
 
  	// class If(Expr condition, List<Statement> thenBlock, List<Statement> elseBlock)
  	@Override
@@ -142,6 +147,25 @@ public class Identification extends DefaultVisitor {
 
  		return null;
  	}
+ 	
+ 	
+ // class FunctionCall(String nombre, List<Expr> exprs)
+  	@Override
+  	public Object visit(StmtFunctionCall functionCall, Object param) {
+  		Function f=funciones.getFromAny(functionCall.getNombre());
+  		if(f!=null) {
+  			functionCall.setFunction(f);
+  		}else {
+  			notifyError("La función no ha sido definida previamente: "+functionCall.getNombre());
+  		}
+  		// functionCall.getExprs().forEach(expr -> expr.accept(this, param));
+  		super.visit(functionCall, param);
+
+  		return null;
+  	}
+  	
+  	
+ 	
  // class NomType(String nombre)
  	@Override
  	public Object visit(NomType nomType, Object param) {

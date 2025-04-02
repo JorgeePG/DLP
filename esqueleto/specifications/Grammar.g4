@@ -28,16 +28,17 @@ funciones returns [List<Function> ast = new ArrayList<Function>()]
 	
 statement returns [Statement ast]
  locals [Expr ex=null , List<Statement> st=null;]
-	:'var' declaracion 																{ $ast = new StmtVarDefinition($declaracion.ast); }
-	|'print' ceromuchasexpr ';' 													{ $ast = new Print($ceromuchasexpr.ast); }
-	|'printsp' ceromuchasexpr ';' 													{ $ast = new PrintSp($ceromuchasexpr.ast); }
-	|'println' ceromuchasexpr ';'													{ $ast = new PrintLn($ceromuchasexpr.ast); }
-	| ex1=expr '=' ex2=expr ';' 													{ $ast = new Asignacion($ex1.ast, $ex2.ast); }
-	| 'return'(expr{$ex=$expr.ast;})? ';'											{ $ast = new Return($ex); }
-	| expr ';'																		{ $ast = new OneExpr($expr.ast); }
+	:'var' declaracion 																	{ $ast = new StmtVarDefinition($declaracion.ast); }
+	| IDENT '('ceromuchasexpr')'';' 													{ $ast = new StmtFunctionCall($IDENT , $ceromuchasexpr.ast); }
+	|'print' ceromuchasexpr ';' 														{ $ast = new Print($ceromuchasexpr.ast); }
+	|'printsp' ceromuchasexpr ';' 														{ $ast = new PrintSp($ceromuchasexpr.ast); }
+	|'println' ceromuchasexpr ';'														{ $ast = new PrintLn($ceromuchasexpr.ast); }
+	| ex1=expr '=' ex2=expr ';' 														{ $ast = new Asignacion($ex1.ast, $ex2.ast); }
+	| 'return'(expr{$ex=$expr.ast;})? ';'												{ $ast = new Return($ex); }
+	| expr ';'																			{ $ast = new OneExpr($expr.ast); }
 	|'if' '('expr')' '{'st1=statements'}' ('else' '{'st2=statements{$st=$st2.ast;}'}')?	{ $ast = new If($expr.ast, $st1.ast, $st); }
-	|'while' '('expr')' '{'statements'}' 											{ $ast = new While($expr.ast, $statements.ast); }
-	|'read' expr ';' 																{ $ast = new Read($expr.ast); }
+	|'while' '('expr')' '{'statements'}' 												{ $ast = new While($expr.ast, $statements.ast); }
+	|'read' expr ';' 																	{ $ast = new Read($expr.ast); }
 	;
 ceromuchasexpr returns [List<Expr> ast = new ArrayList<Expr>()]
 	: (ex1=expr{$ast.add($ex1.ast);}(','ex2=expr{$ast.add($ex2.ast);})*)?
@@ -53,7 +54,7 @@ expr returns[Expr ast]
 	| '!' expr 										{ $ast = new Not($expr.ast); }
 	| ex1=expr op=('*'|'/') ex2=expr 				{ $ast = new OperacionAritmetica($ex1.ast, $op, $ex2.ast); }
 	| ex1=expr op=('+'|'-') ex2=expr 				{ $ast = new OperacionAritmetica($ex1.ast, $op, $ex2.ast); }
-	|ex1=expr op=('<'|'>') ex2=expr 				{ $ast = new Comparacion($ex1.ast, $op, $ex2.ast); }
+	| ex1=expr op=('<'|'>') ex2=expr 				{ $ast = new Comparacion($ex1.ast, $op, $ex2.ast); }
 	| ex1=expr op=('=='|'<='|'>=' |'!=') ex2=expr  	{ $ast = new Comparacion($ex1.ast, $op, $ex2.ast); } 
 	| ex1=expr op='&&' ex2=expr 					{ $ast = new OperacionLogica($ex1.ast, $op, $ex2.ast); }
 	| ex1=expr op='||' ex2=expr 					{ $ast = new OperacionLogica($ex1.ast, $op, $ex2.ast); }
@@ -70,7 +71,7 @@ declaracion returns [Declaracion ast]
 	;
 
 funcion returns [Function ast] locals [Tipo tipoAux= new VoidType();]
-	: IDENT'('parametros')'(':'tipo{$tipoAux=$tipo.ast;})?'{'statements '}'{ $ast = new Function($IDENT ,$parametros.ast,$tipoAux,$statements.ast); }											
+	: IDENT'('parametros')'(':'tipo{$tipoAux=$tipo.ast;})?'{'statements '}'	{ $ast = new Function($IDENT ,$parametros.ast,$tipoAux,$statements.ast); }											
 	;
 	
 parametros returns [List <Declaracion> ast= new ArrayList<Declaracion>()]

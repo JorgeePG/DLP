@@ -123,6 +123,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Print(List<Expr> exprs)
+	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(Print print, Object param) {
 
@@ -133,6 +134,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class PrintSp(List<Expr> exprs)
+	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(PrintSp printSp, Object param) {
 
@@ -143,6 +145,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class PrintLn(List<Expr> exprs)
+	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(PrintLn printLn, Object param) {
 
@@ -153,6 +156,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Asignacion(Expr left, Expr right)
+	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(Asignacion asignacion, Object param) {
 
@@ -164,6 +168,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Return(Optional<Expr> expr)
+	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(Return returnValue, Object param) {
 
@@ -174,6 +179,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class OneExpr(Expr expr)
+	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(OneExpr oneExpr, Object param) {
 
@@ -184,6 +190,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class If(Expr condition, List<Statement> thenBlock, List<Statement> elseBlock)
+	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(If ifValue, Object param) {
 
@@ -196,6 +203,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class While(Expr condition, List<Statement> body)
+	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(While whileValue, Object param) {
 
@@ -207,6 +215,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Read(Expr expr)
+	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(Read read, Object param) {
 
@@ -217,6 +226,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class StmtVarDefinition(Declaracion declaracion)
+	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(StmtVarDefinition stmtVarDefinition, Object param) {
 
@@ -226,7 +236,20 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 		return null;
 	}
 
+	// class StmtFunctionCall(String nombre, List<Expr> exprs)
+	// phase Identification { Function function }
+	// phase TypeChecking { Function padre }
+	@Override
+	public Object visit(StmtFunctionCall stmtFunctionCall, Object param) {
+
+		// stmtFunctionCall.getExprs().forEach(expr -> expr.accept(this, param));
+		super.visit(stmtFunctionCall, param);
+
+		return null;
+	}
+
 	// class FieldAccess(Expr object, String field)
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(FieldAccess fieldAccess, Object param) {
 
@@ -237,6 +260,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class ArrayAccess(Expr array, Expr index)
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(ArrayAccess arrayAccess, Object param) {
 
@@ -248,6 +272,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Cast(Tipo tipo, Expr target)
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(Cast cast, Object param) {
 
@@ -259,6 +284,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Not(Expr expr)
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(Not not, Object param) {
 
@@ -269,6 +295,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class OperacionAritmetica(Expr left, String operador, Expr right)
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(OperacionAritmetica operacionAritmetica, Object param) {
 
@@ -280,6 +307,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class OperacionLogica(Expr left, String operador, Expr right)
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(OperacionLogica operacionLogica, Object param) {
 
@@ -291,6 +319,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Comparacion(Expr left, String operador, Expr right)
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(Comparacion comparacion, Object param) {
 
@@ -303,6 +332,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 
 	// class FunctionCall(String nombre, List<Expr> exprs)
 	// phase Identification { Function function }
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(FunctionCall functionCall, Object param) {
 
@@ -313,6 +343,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Parentesis(Expr expr)
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(Parentesis parentesis, Object param) {
 
@@ -324,6 +355,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 
 	// class Variable(String nombre)
 	// phase Identification { Declaracion declaracion }
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(Variable variable, Object param) {
 
@@ -331,6 +363,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class IntLiteral(int intValue)
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(IntLiteral intLiteral, Object param) {
 
@@ -338,6 +371,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class RealLiteral(float floatValue)
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(RealLiteral realLiteral, Object param) {
 
@@ -345,6 +379,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class CharLiteral(char charValue)
+	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(CharLiteral charLiteral, Object param) {
 

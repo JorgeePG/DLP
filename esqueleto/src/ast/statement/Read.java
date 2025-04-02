@@ -3,6 +3,7 @@
 package ast.statement;
 
 import ast.expr.*;
+import ast.cuerpoprograma.*;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -14,6 +15,9 @@ import visitor.Visitor;
 /*
 	read: statement -> expr:expr
 	statement -> 
+	
+	PHASE TypeChecking
+	statement -> padre:function
 */
 public class Read extends AbstractStatement  {
 

@@ -2,6 +2,8 @@
 
 package ast.expr;
 
+import ast.tipo.*;
+import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -13,6 +15,10 @@ import visitor.Visitor;
 /*
 	not: expr -> expr:expr
 	expr -> 
+	
+	PHASE TypeChecking
+	expr -> type:tipo
+	expr -> lvalue:boolean
 */
 public class Not extends AbstractExpr  {
 

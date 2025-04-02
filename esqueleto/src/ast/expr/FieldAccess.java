@@ -2,6 +2,7 @@
 
 package ast.expr;
 
+import ast.tipo.*;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -14,6 +15,10 @@ import visitor.Visitor;
 /*
 	fieldAccess: expr -> object:expr field:string
 	expr -> 
+	
+	PHASE TypeChecking
+	expr -> type:tipo
+	expr -> lvalue:boolean
 */
 public class FieldAccess extends AbstractExpr  {
 

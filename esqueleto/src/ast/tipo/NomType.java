@@ -105,6 +105,9 @@ public class NomType extends AbstractTipo  {
 
     // %% User Members -------------------------
 
+    public String getString() {
+        return "NomType{" + " nombre=" + "" + "}";
+    }
         // Methods/attributes in this section will be preserved. Delete if not needed
 
     // %% --------------------------------------

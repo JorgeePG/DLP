@@ -3,6 +3,7 @@
 package ast.statement;
 
 import ast.*;
+import ast.cuerpoprograma.*;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -14,6 +15,9 @@ import visitor.Visitor;
 /*
 	stmtVarDefinition: statement -> declaracion:declaracion
 	statement -> 
+	
+	PHASE TypeChecking
+	statement -> padre:function
 */
 public class StmtVarDefinition extends AbstractStatement  {
 

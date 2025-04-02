@@ -3,6 +3,7 @@
 package ast.expr;
 
 import ast.tipo.*;
+import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -14,6 +15,10 @@ import visitor.Visitor;
 /*
 	cast: expr -> tipo:tipo target:expr
 	expr -> 
+	
+	PHASE TypeChecking
+	expr -> type:tipo
+	expr -> lvalue:boolean
 */
 public class Cast extends AbstractExpr  {
 

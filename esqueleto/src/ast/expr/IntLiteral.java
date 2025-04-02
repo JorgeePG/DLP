@@ -2,6 +2,7 @@
 
 package ast.expr;
 
+import ast.tipo.*;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -14,6 +15,10 @@ import visitor.Visitor;
 /*
 	intLiteral: expr -> intValue:int
 	expr -> 
+	
+	PHASE TypeChecking
+	expr -> type:tipo
+	expr -> lvalue:boolean
 */
 public class IntLiteral extends AbstractExpr  {
 
