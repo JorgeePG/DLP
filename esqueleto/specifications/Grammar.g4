@@ -52,7 +52,7 @@ expr returns[Expr ast]
 	|ex1=expr '['ex2=expr']' 						{ $ast = new ArrayAccess($ex1.ast, $ex2.ast); }
 	| '<'tipo'>''('expr')'							{ $ast = new Cast($tipo.ast, $expr.ast); }
 	| '!' expr 										{ $ast = new Not($expr.ast); }
-	| ex1=expr op=('*'|'/') ex2=expr 				{ $ast = new OperacionAritmetica($ex1.ast, $op, $ex2.ast); }
+	| ex1=expr op=('*'|'/'|'%') ex2=expr 			{ $ast = new OperacionAritmetica($ex1.ast, $op, $ex2.ast); }
 	| ex1=expr op=('+'|'-') ex2=expr 				{ $ast = new OperacionAritmetica($ex1.ast, $op, $ex2.ast); }
 	| ex1=expr op=('<'|'>') ex2=expr 				{ $ast = new Comparacion($ex1.ast, $op, $ex2.ast); }
 	| ex1=expr op=('=='|'<='|'>=' |'!=') ex2=expr  	{ $ast = new Comparacion($ex1.ast, $op, $ex2.ast); } 
