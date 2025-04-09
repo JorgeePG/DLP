@@ -3,6 +3,7 @@
 package ast.cuerpoprograma;
 
 import ast.*;
+import org.antlr.v4.runtime.Token;
 
 // %% User Declarations -------------
 
@@ -12,10 +13,22 @@ import ast.*;
 
 /*
 	cuerpoPrograma -> 
+	
+	PHASE MemoryAllocation
+	cuerpoPrograma -> address:int
 */
 public interface CuerpoPrograma extends AST {
 
 
+
+
+    // --------------------------------
+    // PHASE MemoryAllocation
+
+	// Attribute 'address:int' 
+
+	public void setAddress(int address);
+	public int getAddress();
 
 
     // %% User Members -------------------------

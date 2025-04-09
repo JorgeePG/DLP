@@ -17,6 +17,9 @@ import visitor.Visitor;
 /*
 	structDefinition: cuerpoPrograma -> nombre:string atributos:varDefinition* metodos:function*
 	cuerpoPrograma -> 
+	
+	PHASE MemoryAllocation
+	cuerpoPrograma -> address:int
 */
 public class StructDefinition extends AbstractCuerpoPrograma  {
 

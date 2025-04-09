@@ -67,3 +67,13 @@ expr -> type:tipo;
 expr -> lvalue:boolean;
 statement -> [inherited] padre:function;
 
+// -----------------------
+ATTRIBUTE GRAMMAR MemoryAllocation
+declaracion -> [inh] address:int;    // Inherited attribute
+cuerpoPrograma ->[inh] address:int;
+
+
+
+
+
+

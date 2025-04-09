@@ -130,7 +130,8 @@ public class AstPrinter implements Visitor {
         printListOfNodesChild(indent + 1, "metodos", "List<Function>", structDefinition.getMetodos());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, structDefinition, "nombre", "atributos", "metodos");
+        printToString(indent + 1, "vgen-attribute-phase-2", "address", "int", structDefinition.getAddress());
+		printUnknownFields(indent + 1, structDefinition, "nombre", "atributos", "metodos", "address");
 		return null;
 	}
 
@@ -143,7 +144,8 @@ public class AstPrinter implements Visitor {
         printNodeChild(indent + 1, "declaracion", "Declaracion", varDefinition.getDeclaracion());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, varDefinition, "declaracion");
+        printToString(indent + 1, "vgen-attribute-phase-2", "address", "int", varDefinition.getAddress());
+		printUnknownFields(indent + 1, varDefinition, "declaracion", "address");
 		return null;
 	}
 
@@ -157,7 +159,8 @@ public class AstPrinter implements Visitor {
         printNodeChild(indent + 1, "tipo", "Tipo", declaracion.getTipo());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, declaracion, "nombre", "tipo");
+        printToString(indent + 1, "vgen-attribute-phase-2", "address", "int", declaracion.getAddress());
+		printUnknownFields(indent + 1, declaracion, "nombre", "tipo", "address");
 		return null;
 	}
 
@@ -173,7 +176,8 @@ public class AstPrinter implements Visitor {
         printListOfNodesChild(indent + 1, "cuerpo", "List<Statement>", function.getCuerpo());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-		printUnknownFields(indent + 1, function, "nombre", "parametros", "tipoRetorno", "cuerpo");
+        printToString(indent + 1, "vgen-attribute-phase-2", "address", "int", function.getAddress());
+		printUnknownFields(indent + 1, function, "nombre", "parametros", "tipoRetorno", "cuerpo", "address");
 		return null;
 	}
 

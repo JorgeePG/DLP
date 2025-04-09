@@ -36,6 +36,8 @@ interface Tipo {
 AST <|-[#808080]- Tipo
 
 interface CuerpoPrograma {
+	..<color:#669900> MemoryAllocation </color>..
+	+<color:#669900>int address</color>
 }
 AST <|-[#808080]- CuerpoPrograma
 
@@ -61,6 +63,8 @@ VarDefinition o-[#404040,thickness=2]-  Declaracion : declaracion >
 
 class Declaracion {
 	+String nombre
+	..<color:#669900> MemoryAllocation </color>..
+	+<color:#669900>int address</color>
 }
 AST <|-[#808080]- Declaracion
 Declaracion o-[#404040,thickness=2]-  Tipo : tipo >

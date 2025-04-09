@@ -45,6 +45,8 @@ Tipo <|-[#808080]- AbstractTipo
 AbstractAST <|-[#808080]- AbstractTipo
 
 interface CuerpoPrograma {
+	..<color:#669900> MemoryAllocation </color>..
+	+<color:#669900>int address</color>
 }
 AST <|-[#808080]- CuerpoPrograma
 abstract AbstractCuerpoPrograma
@@ -75,6 +77,8 @@ VarDefinition o-[#404040,thickness=2]-  Declaracion : declaracion >
 
 class Declaracion {
 	+String nombre
+	..<color:#669900> MemoryAllocation </color>..
+	+<color:#669900>int address</color>
 }
 AbstractAST <|-[#808080]- Declaracion
 Declaracion o-[#404040,thickness=2]-  Tipo : tipo >

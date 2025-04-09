@@ -3,6 +3,7 @@
 package ast.cuerpoprograma;
 
 import ast.*;
+import org.antlr.v4.runtime.Token;
 
 // %% User Declarations -------------
 
@@ -12,9 +13,34 @@ import ast.*;
 
 /*
 	cuerpoPrograma -> 
+	
+	PHASE MemoryAllocation
+	cuerpoPrograma -> address:int
 */
 public abstract class AbstractCuerpoPrograma extends AbstractAST implements CuerpoPrograma {
 
+    // ----------------------------------
+    // Instance Variables
+
+
+    // PHASE MemoryAllocation
+	private int address;
+
+
+
+    // --------------------------------
+    // PHASE MemoryAllocation
+
+	// Attribute 'address:int' 
+
+	public void setAddress(int address) {
+		this.address = address;
+
+	}
+
+    public int getAddress() {
+        return address;
+    }
 
 
 

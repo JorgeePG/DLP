@@ -20,6 +20,9 @@ import visitor.Visitor;
 /*
 	function: cuerpoPrograma -> nombre:string parametros:declaracion* tipoRetorno:tipo cuerpo:statement*
 	cuerpoPrograma -> 
+	
+	PHASE MemoryAllocation
+	cuerpoPrograma -> address:int
 */
 public class Function extends AbstractCuerpoPrograma  {
 

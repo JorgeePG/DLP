@@ -3,6 +3,7 @@
 package ast.cuerpoprograma;
 
 import ast.*;
+import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
 // %% User Declarations -------------
@@ -14,6 +15,9 @@ import visitor.Visitor;
 /*
 	varDefinition: cuerpoPrograma -> declaracion:declaracion
 	cuerpoPrograma -> 
+	
+	PHASE MemoryAllocation
+	cuerpoPrograma -> address:int
 */
 public class VarDefinition extends AbstractCuerpoPrograma  {
 

@@ -1,10 +1,9 @@
 // Generated with VGen 2.0.0
 
-
 /*
 
-Este fichero es un esqueleto para facilitar la creación de una clase visitor. Para
-usarlo hay que realizar dos pasos:
+Este fichero es un esqueleto para facilitar la implementación de una gramática atribuida
+('ATTRIBUTE GRAMMAR' de VGen). Para usarlo hay que realizar dos pasos:
 1. Ubicar este código.
 2. Completar cada método visit.
 
@@ -19,7 +18,8 @@ Hay dos opciones:
    métodos visit de este esqueleto (y los import) ignorando el resto.
 
 2) Si no se tiene hecha aún la clase, este esqueleto vale como tal si se mueve a la
-   carpeta deseada del proyecto y se le pone el package correspondiente a dicha ubicación.
+   carpeta deseada del proyecto y se le pone el package correspondiente a dicha
+   ubicación.
 
 Una vez hecho esto, ya se tendría un visitor que compilaría sin errores y que, al
 ejecutarlo, recorrería todo el árbol (aunque sin hacer nada en cada nodo).
@@ -39,14 +39,21 @@ Por tanto, hay tres opciones a la hora de implementar cada visit:
    DefaultVisitor la misma implementación que se acaba de borrar. Es decir, en esta
    clase sólo será necesario dejar los visit que tengan alguna acción que realizar.
 
-2. Si se necesita hacer alguna tarea adicional ANTES o DESPUÉS de recorrer todos
-   los hijos, se debe añadir su código antes o después de la llamada a 'super.visit' (y
-   se pueden borrar los 'accept' comentados).
+2. Si se necesita hacer alguna tarea adicional ANTES o DESPUÉS de recorrer todos los
+   hijos, se debe añadir su código antes o después de la llamada a 'super.visit' (y se
+   pueden borrar los 'accept' comentados).
 
 3. Y, finalmente, si se necesita hacer alguna tarea INTERCALADA en el recorrido de los
    hijos (por ejemplo, comprobar su tipo), se debe borrar el 'super.visit' y descomentar
    los 'accept'. Así se tendría ya implementado el recorrido de los hijos, que es la
    estructura donde se intecalará el código de las acciones adicionales.
+
+NOTA 1. En los visit en los que haya que inicializar atributos heredados de los hijos
+antes de recorrerlos, se han añadido recordatorios en los puntos en los que es
+aconsejable hacerlo.
+
+NOTA 2. En los visit de los nodos que tengan atributos sintetizados, se han añadido
+recordatorios de que se deben inicializar dichos atributos.
 
 */
 
@@ -61,7 +68,7 @@ import ast.expr.*;
 import ast.tipo.*;
 
 
-public class SkeletonForNewVisitors extends DefaultVisitor {
+public class MemoryAllocation extends DefaultVisitor {
 
     public void process(AST ast) {
         ast.accept(this, null);
@@ -72,6 +79,11 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	// class Program(List<CuerpoPrograma> cuerpoProgramas)
 	@Override
 	public Object visit(Program program, Object param) {
+
+		for (var cuerpoPrograma : program.getCuerpoProgramas()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// cuerpoPrograma.setAddress(?);
+		}
 
 		// program.getCuerpoProgramas().forEach(cuerpoPrograma -> cuerpoPrograma.accept(this, param));
 		super.visit(program, param);
@@ -84,6 +96,16 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	@Override
 	public Object visit(StructDefinition structDefinition, Object param) {
 
+		for (var varDefinition : structDefinition.getAtributos()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// varDefinition.setAddress(structDefinition.getAddress());
+		}
+
+		for (var function : structDefinition.getMetodos()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// function.setAddress(structDefinition.getAddress());
+		}
+
 		// structDefinition.getAtributos().forEach(varDefinition -> varDefinition.accept(this, param));
 		// structDefinition.getMetodos().forEach(function -> function.accept(this, param));
 		super.visit(structDefinition, param);
@@ -95,6 +117,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	// phase MemoryAllocation { int address }
 	@Override
 	public Object visit(VarDefinition varDefinition, Object param) {
+
+		// TODO: Remember to initialize INHERITED attributes <----
+		// varDefinition.getDeclaracion().setAddress(varDefinition.getAddress());
 
 		// varDefinition.getDeclaracion().accept(this, param);
 		super.visit(varDefinition, param);
@@ -117,11 +142,21 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	// phase MemoryAllocation { int address }
 	@Override
 	public Object visit(Function function, Object param) {
-
-		// function.getParametros().forEach(declaracion -> declaracion.accept(this, param));
-		// function.getTipoRetorno().accept(this, param);
-		// function.getCuerpo().forEach(statement -> statement.accept(this, param));
-		super.visit(function, param);
+		int addressParam=4;//Empieza en 4 para saltarse el BP y lo otro.
+		for (var declaracion : function.getParametros()) {
+			declaracion.setAddress(addressParam);
+			declaracion.accept(this, param);
+			addressParam+=declaracion.getTipo().getSize();
+		}
+		function.getTipoRetorno().accept(this, param);
+		int addressField=0;//Acuerdate que va hacia atras
+		for (var statement : function.getCuerpo()) {
+			if(statement.getClass().isInstance(Declaracion)) {
+				Declaracion d= (Declaracion)statement;
+				d.setAddress(-1*(addressField+d.getTipo().getSize()));
+			}
+			statement -> statement.accept(this, param);
+		}
 
 		return null;
 	}
@@ -233,6 +268,9 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(StmtVarDefinition stmtVarDefinition, Object param) {
+
+		// TODO: Remember to initialize INHERITED attributes <----
+		// stmtVarDefinition.getDeclaracion().setAddress(?);
 
 		// stmtVarDefinition.getDeclaracion().accept(this, param);
 		super.visit(stmtVarDefinition, param);
