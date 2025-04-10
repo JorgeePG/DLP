@@ -223,16 +223,6 @@ public class Identification extends DefaultVisitor {
 		return null;
 	}
 
-	// class StmtVarDefinition(Declaracion declaracion)
-	@Override
-	public Object visit(StmtVarDefinition stmtVarDefinition, Object param) {
-
-		// stmtVarDefinition.getDeclaracion().accept(this, param);
-		super.visit(stmtVarDefinition, param);
-
-		return null;
-	}
-
 	// class StmtFunctionCall(String nombre, List<Expr> exprs)
 	// phase Identification { Function function }
 	@Override

@@ -126,11 +126,6 @@ class Read {
 Statement <|-[#808080]- Read
 Read o-[#404040,thickness=2]-  Expr : expr >
 
-class StmtVarDefinition {
-}
-Statement <|-[#808080]- StmtVarDefinition
-StmtVarDefinition o-[#404040,thickness=2]-  Declaracion : declaracion >
-
 class StmtFunctionCall {
 	+String nombre
 }

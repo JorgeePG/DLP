@@ -252,17 +252,6 @@ public class TypeChecking extends DefaultVisitor {
 		return null;
 	}
 
-	// class StmtVarDefinition(Declaracion declaracion)
-	// phase TypeChecking { Function padre }
-	@Override
-	public Object visit(StmtVarDefinition stmtVarDefinition, Object param) {
-
-		// stmtVarDefinition.getDeclaracion().accept(this, param);
-		super.visit(stmtVarDefinition, param);
-
-		return null;
-	}
-
 	// class StmtFunctionCall(String nombre, List<Expr> exprs)
 	// phase Identification { Function function }
 	// phase TypeChecking { Function padre }

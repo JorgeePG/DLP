@@ -51,7 +51,6 @@ statement returns[Statement ast]
     | expr thenBlock+=statement* elseBlock+=statement* { $ast = new If($expr.ast, $thenBlock, $elseBlock); }  
     | expr body+=statement*               { $ast = new While($expr.ast, $body); }                
     | expr                                { $ast = new Read($expr.ast); }                        
-    | declaracion                         { $ast = new StmtVarDefinition($declaracion.ast); }    
     | nombre=IDENT exprs+=expr*           { $ast = new StmtFunctionCall($nombre, $exprs); }      
 	;
 

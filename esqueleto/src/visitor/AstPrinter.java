@@ -312,20 +312,6 @@ public class AstPrinter implements Visitor {
 	}
 
 	@Override
-	public Object visit(StmtVarDefinition stmtVarDefinition, Object param) {
-
-		int indent = ((Integer)param);
-
-		// Imprimir los hijos (y recorrer si son nodos del AST)
-        printNodeChild(indent + 1, "declaracion", "Declaracion", stmtVarDefinition.getDeclaracion());
-
-		// Imprimir el 'toString()' de los atributos (pero no recorrer)
-        printToString(indent + 1, "vgen-attribute-phase-1", "padre", "Function", stmtVarDefinition.getPadre());
-		printUnknownFields(indent + 1, stmtVarDefinition, "declaracion", "padre");
-		return null;
-	}
-
-	@Override
 	public Object visit(StmtFunctionCall stmtFunctionCall, Object param) {
 
 		int indent = ((Integer)param);

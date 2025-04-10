@@ -35,7 +35,6 @@ import ast.statement.PrintSp;
 import ast.statement.Read;
 import ast.statement.Return;
 import ast.statement.StmtFunctionCall;
-import ast.statement.StmtVarDefinition;
 import ast.statement.While;
 import ast.tipo.ArrayType;
 import ast.tipo.CharType;

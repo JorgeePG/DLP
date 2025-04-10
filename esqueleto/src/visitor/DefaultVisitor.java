@@ -131,13 +131,6 @@ public class DefaultVisitor implements Visitor {
 	}
 
 	@Override
-	public Object visit(StmtVarDefinition stmtVarDefinition, Object param) {
-
-		stmtVarDefinition.getDeclaracion().accept(this, param);
-		return null;
-	}
-
-	@Override
 	public Object visit(StmtFunctionCall stmtFunctionCall, Object param) {
 
 		stmtFunctionCall.getExprs().forEach(expr -> expr.accept(this, param));

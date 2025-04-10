@@ -1,6 +1,8 @@
 package codegeneration;
 
-import ast.*;
+import ast.AST;
+import ast.Declaracion;
+import ast.Program;
 import ast.cuerpoprograma.Function;
 import ast.cuerpoprograma.StructDefinition;
 import ast.cuerpoprograma.VarDefinition;
@@ -17,16 +19,9 @@ import ast.expr.OperacionLogica;
 import ast.expr.Parentesis;
 import ast.expr.RealLiteral;
 import ast.expr.Variable;
-import ast.statement.Asignacion;
 import ast.statement.If;
-import ast.statement.OneExpr;
-import ast.statement.Print;
-import ast.statement.PrintLn;
-import ast.statement.PrintSp;
 import ast.statement.Read;
-import ast.statement.Return;
 import ast.statement.StmtFunctionCall;
-import ast.statement.StmtVarDefinition;
 import ast.statement.While;
 import ast.tipo.ArrayType;
 import ast.tipo.CharType;
@@ -94,24 +89,18 @@ public class MemoryAllocation extends DefaultVisitor {
   			declaracion.accept(this, param);
   			address+=declaracion.getTipo().getSize();
   		}
-  		address=0;//Acuerdate que aqí va al revés
-  		for (var statement : function.getCuerpo()) {
-  			if(statement.getClass().isInstance(Declaracion.class)) {
-  				Declaracion declaracion= (Declaracion)statement;
-  				declaracion.setAddress(-1*(address+declaracion.getTipo().getSize()));
-  				System.out.println("Variable: "+declaracion.getNombre()+" - dirección: "+declaracion.getAddress());
-  				statement.accept(this, param);
-  	  			address-=declaracion.getTipo().getSize();
-  			}else {
-  				statement.accept(this, param);
-  			}
-  			
-  		}
+  		address=0;//Aquí crece negativamente
+  		for (var declaracion : function.getParametros()) {
+  			declaracion.setAddress(address-declaracion.getTipo().getSize());
+			System.out.println("Variable: "+declaracion.getNombre()+" - dirección: "+declaracion.getAddress());
+			declaracion.accept(this, param);
+	  		address-=declaracion.getTipo().getSize();
+ 		}
   		function.getTipoRetorno().accept(this, param);
   		
   		return null;
   	}
-
+  	
   	// class If(Expr condition, List<Statement> thenBlock, List<Statement> elseBlock)
   	// phase TypeChecking { Function padre }
   	@Override
@@ -144,20 +133,6 @@ public class MemoryAllocation extends DefaultVisitor {
 
   		// read.getExpr().accept(this, param);
   		super.visit(read, param);
-
-  		return null;
-  	}
-
-  	// class StmtVarDefinition(Declaracion declaracion)
-  	// phase TypeChecking { Function padre }
-  	@Override
-  	public Object visit(StmtVarDefinition stmtVarDefinition, Object param) {
-
-  		// TODO: Remember to initialize INHERITED attributes <----
-  		// stmtVarDefinition.getDeclaracion().setAddress(?);
-
-  		// stmtVarDefinition.getDeclaracion().accept(this, param);
-  		super.visit(stmtVarDefinition, param);
 
   		return null;
   	}

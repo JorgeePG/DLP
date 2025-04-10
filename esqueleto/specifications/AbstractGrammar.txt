@@ -25,7 +25,6 @@ oneExpr:statement -> expr;
 if:statement -> condition:expr thenBlock:statement* elseBlock:statement*; 
 while:statement -> condition:expr body:statement*;
 read:statement -> expr;
-stmtVarDefinition:statement -> declaracion;
 stmtFunctionCall:statement -> nombre:string expr*;
 
 // Expresiones

@@ -44,8 +44,6 @@ public interface Visitor {
 
 	public Object visit(Read read, Object param);
 
-	public Object visit(StmtVarDefinition stmtVarDefinition, Object param);
-
 	public Object visit(StmtFunctionCall stmtFunctionCall, Object param);
 
 	public Object visit(FieldAccess fieldAccess, Object param);

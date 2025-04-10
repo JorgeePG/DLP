@@ -142,21 +142,16 @@ public class MemoryAllocation extends DefaultVisitor {
 	// phase MemoryAllocation { int address }
 	@Override
 	public Object visit(Function function, Object param) {
-		int addressParam=4;//Empieza en 4 para saltarse el BP y lo otro.
+
 		for (var declaracion : function.getParametros()) {
-			declaracion.setAddress(addressParam);
-			declaracion.accept(this, param);
-			addressParam+=declaracion.getTipo().getSize();
+			// TODO: Remember to initialize INHERITED attributes <----
+			// declaracion.setAddress(function.getAddress());
 		}
-		function.getTipoRetorno().accept(this, param);
-		int addressField=0;//Acuerdate que va hacia atras
-		for (var statement : function.getCuerpo()) {
-			if(statement.getClass().isInstance(Declaracion)) {
-				Declaracion d= (Declaracion)statement;
-				d.setAddress(-1*(addressField+d.getTipo().getSize()));
-			}
-			statement -> statement.accept(this, param);
-		}
+
+		// function.getParametros().forEach(declaracion -> declaracion.accept(this, param));
+		// function.getTipoRetorno().accept(this, param);
+		// function.getCuerpo().forEach(statement -> statement.accept(this, param));
+		super.visit(function, param);
 
 		return null;
 	}
@@ -260,20 +255,6 @@ public class MemoryAllocation extends DefaultVisitor {
 
 		// read.getExpr().accept(this, param);
 		super.visit(read, param);
-
-		return null;
-	}
-
-	// class StmtVarDefinition(Declaracion declaracion)
-	// phase TypeChecking { Function padre }
-	@Override
-	public Object visit(StmtVarDefinition stmtVarDefinition, Object param) {
-
-		// TODO: Remember to initialize INHERITED attributes <----
-		// stmtVarDefinition.getDeclaracion().setAddress(?);
-
-		// stmtVarDefinition.getDeclaracion().accept(this, param);
-		super.visit(stmtVarDefinition, param);
 
 		return null;
 	}

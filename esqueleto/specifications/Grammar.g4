@@ -22,14 +22,17 @@ cuerpo_programa returns [CuerpoPrograma ast]
 declaraciones returns [List<VarDefinition> ast = new ArrayList<VarDefinition>()]
 	:(declaracion{$ast.add(new VarDefinition($declaracion.ast));})* 
 	;
+	
+declaracionesFuncion returns [List<VarDefinition> ast = new ArrayList<VarDefinition>()]
+	:('var' declaracion{$ast.add(new VarDefinition($declaracion.ast));})* 
+	;
 funciones returns [List<Function> ast = new ArrayList<Function>()]
 	: (funcion{$ast.add($funcion.ast);})*
 	;
 	
 statement returns [Statement ast]
  locals [Expr ex=null , List<Statement> st=null;]
-	:'var' declaracion 																	{ $ast = new StmtVarDefinition($declaracion.ast); }
-	| IDENT '('ceromuchasexpr')'';' 													{ $ast = new StmtFunctionCall($IDENT , $ceromuchasexpr.ast); }
+	: IDENT '('ceromuchasexpr')'';' 													{ $ast = new StmtFunctionCall($IDENT , $ceromuchasexpr.ast); }
 	|'print' ceromuchasexpr ';' 														{ $ast = new Print($ceromuchasexpr.ast); }
 	|'printsp' ceromuchasexpr ';' 														{ $ast = new PrintSp($ceromuchasexpr.ast); }
 	|'println' ceromuchasexpr ';'														{ $ast = new PrintLn($ceromuchasexpr.ast); }
@@ -40,6 +43,7 @@ statement returns [Statement ast]
 	|'while' '('expr')' '{'statements'}' 												{ $ast = new While($expr.ast, $statements.ast); }
 	|'read' expr ';' 																	{ $ast = new Read($expr.ast); }
 	;
+	
 ceromuchasexpr returns [List<Expr> ast = new ArrayList<Expr>()]
 	: (ex1=expr{$ast.add($ex1.ast);}(','ex2=expr{$ast.add($ex2.ast);})*)?
 	;
@@ -71,7 +75,7 @@ declaracion returns [Declaracion ast]
 	;
 
 funcion returns [Function ast] locals [Tipo tipoAux= new VoidType();]
-	: IDENT'('parametros')'(':'tipo{$tipoAux=$tipo.ast;})?'{'statements '}'	{ $ast = new Function($IDENT ,$parametros.ast,$tipoAux,$statements.ast); }											
+	: IDENT'('parametros')'(':'tipo{$tipoAux=$tipo.ast;})?'{' declaracionesFuncion statements '}'	{ $ast = new Function($IDENT ,$parametros.ast,$tipoAux,$statements.ast); }											
 	;
 	
 parametros returns [List <Declaracion> ast= new ArrayList<Declaracion>()]
