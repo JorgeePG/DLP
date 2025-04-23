@@ -90,7 +90,8 @@ public class MemoryAllocation extends DefaultVisitor {
   			address+=declaracion.getTipo().getSize();
   		}
   		address=0;//Aquí crece negativamente
-  		for (var declaracion : function.getParametros()) {
+  		for (var varDef : function.getVariables()) {
+  			var declaracion= varDef.getDeclaracion();
   			declaracion.setAddress(address-declaracion.getTipo().getSize());
 			System.out.println("Variable: "+declaracion.getNombre()+" - dirección: "+declaracion.getAddress());
 			declaracion.accept(this, param);

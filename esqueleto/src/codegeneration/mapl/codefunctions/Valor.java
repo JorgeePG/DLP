@@ -2,7 +2,13 @@
 
 package codegeneration.mapl.codefunctions;
 
+import ast.AST;
+import ast.Position;
 import ast.expr.*;
+import ast.tipo.CharType;
+import ast.tipo.FloatType;
+import ast.tipo.IntType;
+import ast.tipo.Tipo;
 import codegeneration.mapl.*;
 
 
@@ -18,6 +24,8 @@ public class Valor extends AbstractCodeFunction {
 	@Override
 	public Object visit(FieldAccess fieldAccess, Object param) {
 
+		//EL OBJECT ES UNA MALA NOMINACIÓN QUE HICE NO OLVIDARME QUE NOOOOO ES UN OBJECT DE VERDAD
+		
 		// valor(fieldAccess.getObject());
 		// direccion(fieldAccess.getObject());
 
@@ -60,10 +68,8 @@ public class Valor extends AbstractCodeFunction {
 	@Override
 	public Object visit(Not not, Object param) {
 
-		// valor(not.getExpr());
-		// direccion(not.getExpr());
-
-		out("<instruction>");
+		valor(not.getExpr());
+		out("not");
 
 		return null;
 	}
@@ -73,13 +79,18 @@ public class Valor extends AbstractCodeFunction {
 	@Override
 	public Object visit(OperacionAritmetica operacionAritmetica, Object param) {
 
-		// valor(operacionAritmetica.getLeft());
-		// direccion(operacionAritmetica.getLeft());
+		valor(operacionAritmetica.getLeft());
+		valor(operacionAritmetica.getRight());
 
-		// valor(operacionAritmetica.getRight());
-		// direccion(operacionAritmetica.getRight());
-
-		out("<instruction>");
+		if(operacionAritmetica.getOperador().equals("+")) {
+			out("add"+getFormatTipo(operacionAritmetica.getType()));
+		}else if(operacionAritmetica.getOperador().equals("-")) {
+			out("sub"+getFormatTipo(operacionAritmetica.getType()));
+		}else if(operacionAritmetica.getOperador().equals("*")) {
+			out("mul"+getFormatTipo(operacionAritmetica.getType()));
+		}else if(operacionAritmetica.getOperador().equals("/")) {
+			out("div"+getFormatTipo(operacionAritmetica.getType()));
+		}
 
 		return null;
 	}
@@ -89,13 +100,14 @@ public class Valor extends AbstractCodeFunction {
 	@Override
 	public Object visit(OperacionLogica operacionLogica, Object param) {
 
-		// valor(operacionLogica.getLeft());
-		// direccion(operacionLogica.getLeft());
+		valor(operacionLogica.getLeft());
+		valor(operacionLogica.getRight());
 
-		// valor(operacionLogica.getRight());
-		// direccion(operacionLogica.getRight());
-
-		out("<instruction>");
+		if(operacionLogica.getOperador().equals("&&")) {
+			out("and");
+		}else if(operacionLogica.getOperador().equals("||")) {
+			out("or");
+		}
 
 		return null;
 	}
@@ -182,6 +194,18 @@ public class Valor extends AbstractCodeFunction {
 		out("<instruction>");
 
 		return null;
+	}
+	
+	// Auxiliary methods for the generation of code
+    private String getFormatTipo(Tipo tipo) {
+		if(IntType.class.equals(tipo.getClass())) {
+			return "h";
+		}else if(FloatType.class.equals(tipo.getClass())) {
+			return "f";
+		}else if(CharType.class.equals(tipo.getClass())) {
+			return "b";
+		}
+		return "";
 	}
 
 }

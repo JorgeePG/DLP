@@ -18,7 +18,7 @@ import visitor.Visitor;
 // %% -------------------------------
 
 /*
-	function: cuerpoPrograma -> nombre:string parametros:declaracion* tipoRetorno:tipo cuerpo:statement*
+	function: cuerpoPrograma -> nombre:string parametros:declaracion* variables:varDefinition* tipoRetorno:tipo cuerpo:statement*
 	cuerpoPrograma -> 
 	
 	PHASE MemoryAllocation
@@ -29,16 +29,17 @@ public class Function extends AbstractCuerpoPrograma  {
     // ----------------------------------
     // Instance Variables
 
-	// function: cuerpoPrograma -> nombre:string parametros:declaracion* tipoRetorno:tipo cuerpo:statement*
+	// function: cuerpoPrograma -> nombre:string parametros:declaracion* variables:varDefinition* tipoRetorno:tipo cuerpo:statement*
 	private String nombre;
 	private List<Declaracion> parametros;
+	private List<VarDefinition> variables;
 	private Tipo tipoRetorno;
 	private List<Statement> cuerpo;
 
     // ----------------------------------
     // Constructors
 
-	public Function(String nombre, List<Declaracion> parametros, Tipo tipoRetorno, List<Statement> cuerpo) {
+	public Function(String nombre, List<Declaracion> parametros, List<VarDefinition> variables, Tipo tipoRetorno, List<Statement> cuerpo) {
 		super();
 
 		if (nombre == null)
@@ -49,6 +50,10 @@ public class Function extends AbstractCuerpoPrograma  {
 			parametros = new ArrayList<>();
 		this.parametros = parametros;
 
+		if (variables == null)
+			variables = new ArrayList<>();
+		this.variables = variables;
+
 		if (tipoRetorno == null)
 			throw new IllegalArgumentException("Parameter 'tipoRetorno' can't be null. Pass a non-null value or use 'tipo?' in the abstract grammar");
 		this.tipoRetorno = tipoRetorno;
@@ -57,10 +62,10 @@ public class Function extends AbstractCuerpoPrograma  {
 			cuerpo = new ArrayList<>();
 		this.cuerpo = cuerpo;
 
-		updatePositions(nombre, parametros, tipoRetorno, cuerpo);
+		updatePositions(nombre, parametros, variables, tipoRetorno, cuerpo);
 	}
 
-	public Function(Object nombre, Object parametros, Object tipoRetorno, Object cuerpo) {
+	public Function(Object nombre, Object parametros, Object variables, Object tipoRetorno, Object cuerpo) {
 		super();
 
         if (nombre == null)
@@ -68,17 +73,18 @@ public class Function extends AbstractCuerpoPrograma  {
 		this.nombre = (nombre instanceof Token) ? ((Token) nombre).getText() : (String) nombre;
 
         this.parametros = castList(parametros, unwrapIfContext.andThen(Declaracion.class::cast));
+        this.variables = castList(variables, unwrapIfContext.andThen(VarDefinition.class::cast));
         if (tipoRetorno == null)
             throw new IllegalArgumentException("Parameter 'tipoRetorno' can't be null. Pass a non-null value or use 'tipo?' in the abstract grammar");
 		this.tipoRetorno = (Tipo) tipoRetorno;
 
         this.cuerpo = castList(cuerpo, unwrapIfContext.andThen(Statement.class::cast));
-		updatePositions(nombre, parametros, tipoRetorno, cuerpo);
+		updatePositions(nombre, parametros, variables, tipoRetorno, cuerpo);
 	}
 
 
     // ----------------------------------
-    // function: cuerpoPrograma -> nombre:string parametros:declaracion* tipoRetorno:tipo cuerpo:statement*
+    // function: cuerpoPrograma -> nombre:string parametros:declaracion* variables:varDefinition* tipoRetorno:tipo cuerpo:statement*
 
 	// Child 'nombre:string' 
 
@@ -109,6 +115,24 @@ public class Function extends AbstractCuerpoPrograma  {
 
     public Stream<Declaracion> parametros() {
         return parametros.stream();
+    }
+
+
+	// Child 'variables:varDefinition*' 
+
+	public void setVariables(List<VarDefinition> variables) {
+		if (variables == null)
+			variables = new ArrayList<>();
+		this.variables = variables;
+
+	}
+
+    public List<VarDefinition> getVariables() {
+        return variables;
+    }
+
+    public Stream<VarDefinition> variables() {
+        return variables.stream();
     }
 
 
@@ -154,7 +178,7 @@ public class Function extends AbstractCuerpoPrograma  {
 
     @Override
     public String toString() {
-        return "Function{" + " nombre=" + this.getNombre() + " parametros=" + this.getParametros() + " tipoRetorno=" + this.getTipoRetorno() + " cuerpo=" + this.getCuerpo() + "}";
+        return "Function{" + " nombre=" + this.getNombre() + " parametros=" + this.getParametros() + " variables=" + this.getVariables() + " tipoRetorno=" + this.getTipoRetorno() + " cuerpo=" + this.getCuerpo() + "}";
     }
 
 

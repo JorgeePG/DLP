@@ -2,7 +2,16 @@
 
 package codegeneration.mapl.codefunctions;
 
+import java.util.List;
+
+import ast.AST;
+import ast.Position;
+import ast.expr.Expr;
 import ast.statement.*;
+import ast.tipo.CharType;
+import ast.tipo.FloatType;
+import ast.tipo.IntType;
+import ast.tipo.Tipo;
 import codegeneration.mapl.*;
 
 
@@ -17,24 +26,33 @@ public class Ejecuta extends AbstractCodeFunction {
 	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(Print print, Object param) {
-
-		// valor(print.exprs());
-		// direccion(print.exprs());
-
-		out("<instruction>");
+		line(print);
+		for(Expr e:print.getExprs()) {
+			valor(e);
+			out("out"+getFormatTipo(e.getType()));
+		}
+		
 
 		return null;
 	}
+
+	
+
 
 	// class PrintSp(List<Expr> exprs)
 	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(PrintSp printSp, Object param) {
 
-		// valor(printSp.exprs());
-		// direccion(printSp.exprs());
-
-		out("<instruction>");
+		line(printSp);
+		for(Expr e:printSp.getExprs()) {
+			valor(e);
+			out("out"+getFormatTipo(e.getType()));
+			out("pushb 32");
+			out("outb");
+			
+		}
+		
 
 		return null;
 	}
@@ -44,11 +62,14 @@ public class Ejecuta extends AbstractCodeFunction {
 	@Override
 	public Object visit(PrintLn printLn, Object param) {
 
-		// valor(printLn.exprs());
-		// direccion(printLn.exprs());
-
-		out("<instruction>");
-
+		line(printLn);
+		for(Expr e:printLn.getExprs()) {
+			valor(e);
+			out("out"+getFormatTipo(e.getType()));
+			out("pushb 10");
+			out("outb");
+			
+		}
 		return null;
 	}
 
@@ -56,14 +77,12 @@ public class Ejecuta extends AbstractCodeFunction {
 	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(Asignacion asignacion, Object param) {
+		line(asignacion);
+		
+		direccion(asignacion.getLeft());
+		valor(asignacion.getRight());
 
-		// valor(asignacion.getLeft());
-		// direccion(asignacion.getLeft());
-
-		// valor(asignacion.getRight());
-		// direccion(asignacion.getRight());
-
-		out("<instruction>");
+		out("store"+getFormatTipo(asignacion.getLeft().getType()));
 
 		return null;
 	}
@@ -151,6 +170,29 @@ public class Ejecuta extends AbstractCodeFunction {
 		out("<instruction>");
 
 		return null;
+	}
+	
+	// Auxiliary methods for the generation of code
+
+    private void line(AST node) {
+        line(node.end());
+    }
+
+    private void line(Position pos) {
+        if (pos != null)
+            out("\n#line " + pos.getLine());
+        else
+            System.out.println("#line no generado. Se ha pasado una Position null. Falta información en el AST");
+    }
+    private String getFormatTipo(Tipo tipo) {
+		if(IntType.class.equals(tipo.getClass())) {
+			return "h";
+		}else if(FloatType.class.equals(tipo.getClass())) {
+			return "f";
+		}else if(CharType.class.equals(tipo.getClass())) {
+			return "b";
+		}
+		return "";
 	}
 
 }

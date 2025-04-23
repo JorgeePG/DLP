@@ -39,12 +39,14 @@ public class Prepara extends AbstractCodeFunction {
 		return null;
 	}
 
-	// class Function(String nombre, List<Declaracion> parametros, Tipo tipoRetorno, List<Statement> cuerpo)
+	// class Function(String nombre, List<Declaracion> parametros, List<VarDefinition> variables, Tipo tipoRetorno, List<Statement> cuerpo)
 	// phase MemoryAllocation { int address }
 	@Override
 	public Object visit(Function function, Object param) {
 
 		// define(function.parametros());
+
+		// prepara(function.variables());
 
 		// ejecuta(function.cuerpo());
 

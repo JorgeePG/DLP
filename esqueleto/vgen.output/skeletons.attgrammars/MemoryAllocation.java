@@ -138,7 +138,7 @@ public class MemoryAllocation extends DefaultVisitor {
 		return null;
 	}
 
-	// class Function(String nombre, List<Declaracion> parametros, Tipo tipoRetorno, List<Statement> cuerpo)
+	// class Function(String nombre, List<Declaracion> parametros, List<VarDefinition> variables, Tipo tipoRetorno, List<Statement> cuerpo)
 	// phase MemoryAllocation { int address }
 	@Override
 	public Object visit(Function function, Object param) {
@@ -148,7 +148,13 @@ public class MemoryAllocation extends DefaultVisitor {
 			// declaracion.setAddress(function.getAddress());
 		}
 
+		for (var varDefinition : function.getVariables()) {
+			// TODO: Remember to initialize INHERITED attributes <----
+			// varDefinition.setAddress(function.getAddress());
+		}
+
 		// function.getParametros().forEach(declaracion -> declaracion.accept(this, param));
+		// function.getVariables().forEach(varDefinition -> varDefinition.accept(this, param));
 		// function.getTipoRetorno().accept(this, param);
 		// function.getCuerpo().forEach(statement -> statement.accept(this, param));
 		super.visit(function, param);

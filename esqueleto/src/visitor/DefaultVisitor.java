@@ -58,6 +58,7 @@ public class DefaultVisitor implements Visitor {
 	public Object visit(Function function, Object param) {
 
 		function.getParametros().forEach(declaracion -> declaracion.accept(this, param));
+		function.getVariables().forEach(varDefinition -> varDefinition.accept(this, param));
 		function.getTipoRetorno().accept(this, param);
 		function.getCuerpo().forEach(statement -> statement.accept(this, param));
 		return null;

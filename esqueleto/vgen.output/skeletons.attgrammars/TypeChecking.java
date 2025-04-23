@@ -117,7 +117,7 @@ public class TypeChecking extends DefaultVisitor {
 		return null;
 	}
 
-	// class Function(String nombre, List<Declaracion> parametros, Tipo tipoRetorno, List<Statement> cuerpo)
+	// class Function(String nombre, List<Declaracion> parametros, List<VarDefinition> variables, Tipo tipoRetorno, List<Statement> cuerpo)
 	@Override
 	public Object visit(Function function, Object param) {
 
@@ -127,6 +127,7 @@ public class TypeChecking extends DefaultVisitor {
 		}
 
 		// function.getParametros().forEach(declaracion -> declaracion.accept(this, param));
+		// function.getVariables().forEach(varDefinition -> varDefinition.accept(this, param));
 		// function.getTipoRetorno().accept(this, param);
 		// function.getCuerpo().forEach(statement -> statement.accept(this, param));
 		super.visit(function, param);

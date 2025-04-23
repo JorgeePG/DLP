@@ -1,0 +1,7 @@
+<instruction>
+<instruction>
+<instruction>
+<instruction>
+<instruction>
+<instruction>
+halt

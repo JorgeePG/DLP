@@ -17,7 +17,7 @@ program returns[Program ast]
 cuerpoPrograma returns[CuerpoPrograma ast]
     : nombre=IDENT atributos+=varDefinition* metodos+=function* { $ast = new StructDefinition($nombre, $atributos, $metodos); }
     | declaracion                         { $ast = new VarDefinition($declaracion.ast); }        
-    | nombre=IDENT parametros+=declaracion* tipo cuerpo+=statement* { $ast = new Function($nombre, $parametros, $tipo.ast, $cuerpo); }
+    | nombre=IDENT parametros+=declaracion* variables+=varDefinition* tipo cuerpo+=statement* { $ast = new Function($nombre, $parametros, $variables, $tipo.ast, $cuerpo); }
 	;
 
 varDefinition returns[VarDefinition ast]
@@ -38,7 +38,7 @@ tipo returns[Tipo ast]
 	;
 
 function returns[Function ast]
-    : nombre=IDENT parametros+=declaracion* tipo cuerpo+=statement* { $ast = new Function($nombre, $parametros, $tipo.ast, $cuerpo); }
+    : nombre=IDENT parametros+=declaracion* variables+=varDefinition* tipo cuerpo+=statement* { $ast = new Function($nombre, $parametros, $variables, $tipo.ast, $cuerpo); }
 	;
 
 statement returns[Statement ast]

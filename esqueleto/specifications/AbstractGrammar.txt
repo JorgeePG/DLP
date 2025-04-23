@@ -13,7 +13,7 @@ structDefinition:cuerpoPrograma -> nombre:string atributos:varDefinition* metodo
 varDefinition:cuerpoPrograma -> declaracion;
 declaracion-> nombre:string tipo:tipo;
 
-function:cuerpoPrograma -> nombre:string parametros:declaracion* tipoRetorno:tipo cuerpo:statement*;
+function:cuerpoPrograma -> nombre:string parametros:declaracion* variables:varDefinition* tipoRetorno:tipo cuerpo:statement*;
 
 // Statements
 print:statement -> expr*;

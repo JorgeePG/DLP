@@ -88,6 +88,7 @@ class Function {
 }
 AbstractCuerpoPrograma <|-[#808080]- Function
 Function o-[#404040,thickness=2]- "✱" Declaracion : parametros >
+Function o-[#404040,thickness=2]- "✱" VarDefinition : variables >
 Function o-[#404040,thickness=2]-  Tipo : tipoRetorno >
 Function o-[#404040,thickness=2]- "✱" Statement : cuerpo >
 

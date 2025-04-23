@@ -46,10 +46,7 @@ public class Prepara extends AbstractCodeFunction {
 
 		// define(function.parametros());
 
-		// ejecuta(function.cuerpo());
-
-		out("<instruction>");
-
+		ejecuta(function.cuerpo());
 		return null;
 	}
 

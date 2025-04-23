@@ -172,12 +172,13 @@ public class AstPrinter implements Visitor {
 		// Imprimir los hijos (y recorrer si son nodos del AST)
         printNonNodeChild(indent + 1, "nombre", "String", function.getNombre());
         printListOfNodesChild(indent + 1, "parametros", "List<Declaracion>", function.getParametros());
+        printListOfNodesChild(indent + 1, "variables", "List<VarDefinition>", function.getVariables());
         printNodeChild(indent + 1, "tipoRetorno", "Tipo", function.getTipoRetorno());
         printListOfNodesChild(indent + 1, "cuerpo", "List<Statement>", function.getCuerpo());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
         printToString(indent + 1, "vgen-attribute-phase-2", "address", "int", function.getAddress());
-		printUnknownFields(indent + 1, function, "nombre", "parametros", "tipoRetorno", "cuerpo", "address");
+		printUnknownFields(indent + 1, function, "nombre", "parametros", "variables", "tipoRetorno", "cuerpo", "address");
 		return null;
 	}
 

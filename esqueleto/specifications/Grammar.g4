@@ -75,7 +75,7 @@ declaracion returns [Declaracion ast]
 	;
 
 funcion returns [Function ast] locals [Tipo tipoAux= new VoidType();]
-	: IDENT'('parametros')'(':'tipo{$tipoAux=$tipo.ast;})?'{' declaracionesFuncion statements '}'	{ $ast = new Function($IDENT ,$parametros.ast,$tipoAux,$statements.ast); }											
+	: IDENT'('parametros')'(':'tipo{$tipoAux=$tipo.ast;})?'{' declaracionesFuncion statements '}'	{ $ast = new Function($IDENT ,$parametros.ast,$declaracionesFuncion.ast,$tipoAux,$statements.ast); }											
 	;
 	
 parametros returns [List <Declaracion> ast= new ArrayList<Declaracion>()]

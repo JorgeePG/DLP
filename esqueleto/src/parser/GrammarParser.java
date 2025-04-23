@@ -1113,6 +1113,7 @@ public class GrammarParser extends Parser {
 		public Token IDENT;
 		public ParametrosContext parametros;
 		public TipoContext tipo;
+		public DeclaracionesFuncionContext declaracionesFuncion;
 		public StatementsContext statements;
 		public TerminalNode IDENT() { return getToken(GrammarParser.IDENT, 0); }
 		public ParametrosContext parametros() {
@@ -1164,12 +1165,12 @@ public class GrammarParser extends Parser {
 			setState(265);
 			match(T__1);
 			setState(266);
-			declaracionesFuncion();
+			((FuncionContext)_localctx).declaracionesFuncion = declaracionesFuncion();
 			setState(267);
 			((FuncionContext)_localctx).statements = statements();
 			setState(268);
 			match(T__2);
-			 ((FuncionContext)_localctx).ast =  new Function(((FuncionContext)_localctx).IDENT ,((FuncionContext)_localctx).parametros.ast,_localctx.tipoAux,((FuncionContext)_localctx).statements.ast); 
+			 ((FuncionContext)_localctx).ast =  new Function(((FuncionContext)_localctx).IDENT ,((FuncionContext)_localctx).parametros.ast,((FuncionContext)_localctx).declaracionesFuncion.ast,_localctx.tipoAux,((FuncionContext)_localctx).statements.ast); 
 			}
 		}
 		catch (RecognitionException re) {
