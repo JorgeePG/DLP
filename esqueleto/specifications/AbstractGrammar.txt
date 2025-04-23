@@ -71,7 +71,16 @@ ATTRIBUTE GRAMMAR MemoryAllocation
 declaracion -> [inh] address:int;    // Inherited attribute
 cuerpoPrograma ->[inh] address:int;
 
+// -----------------------
+CODE SPECIFICATION Mapl
 
+run[program]
+prepara[cuerpoPrograma]
+define[declaracion]
+ejecuta[statement]
+valor[expr]
+direccion[expr]
+tipo[tipo]
 
 
 
