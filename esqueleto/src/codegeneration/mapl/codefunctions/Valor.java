@@ -47,8 +47,6 @@ public class Valor extends AbstractCodeFunction {
 	@Override
 	public Object visit(Cast cast, Object param) {
 
-		// tipo(cast.getTipo());
-
 		// valor(cast.getTarget());
 		// direccion(cast.getTarget());
 

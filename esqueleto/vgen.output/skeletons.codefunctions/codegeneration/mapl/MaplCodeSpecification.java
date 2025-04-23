@@ -32,7 +32,7 @@ import codegeneration.mapl.codefunctions.*;
 public class MaplCodeSpecification {
 
     enum CodeFunction {
-        RUN, PREPARA, DEFINE, EJECUTA, VALOR, DIRECCION, TIPO
+        RUN, PREPARA, DEFINE, EJECUTA, VALOR, DIRECCION
     }
 
     private String sourceFile;
@@ -52,7 +52,6 @@ public class MaplCodeSpecification {
 		functions.put(CodeFunction.EJECUTA, new Ejecuta(this));
 		functions.put(CodeFunction.VALOR, new Valor(this));
 		functions.put(CodeFunction.DIRECCION, new Direccion(this));
-		functions.put(CodeFunction.TIPO, new Tipo(this));
 
     }
 

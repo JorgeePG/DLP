@@ -219,31 +219,4 @@ public abstract class AbstractCodeFunction extends ExceptionThrowerVisitor {
     }
 
 
-    // Code Function: 'tipo'
-
-    protected Object tipo(AST node, Object param) {
-        return node.accept(specification.getVisitor(MaplCodeSpecification.CodeFunction.TIPO), param);
-    }
-
-    protected Object tipo(AST node) {
-        return tipo(node, null);
-    }
-
-    protected <T extends AST> void tipo(Stream<T> nodes, Object param) {
-        nodes.forEach(node -> tipo(node, param));
-    }
-
-    protected <T extends AST> void tipo(Stream<T> nodes) {
-        nodes.forEach(this::tipo);
-    }
-
-    protected <T extends AST> Object tipo(Optional<T> optionalNode, Object param) {
-        return optionalNode.map(node -> tipo(node, param)).orElse(null);
-    }
-
-    protected <T extends AST> Object tipo(Optional<T> optionalNode) {
-        return optionalNode.map(this::tipo).orElse(null);
-    }
-
-
 }

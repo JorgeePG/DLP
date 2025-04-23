@@ -18,8 +18,6 @@ public class Define extends AbstractCodeFunction {
 	@Override
 	public Object visit(Declaracion declaracion, Object param) {
 
-		// tipo(declaracion.getTipo());
-
 		out("<instruction>");
 
 		return null;
