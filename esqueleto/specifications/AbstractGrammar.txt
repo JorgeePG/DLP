@@ -80,7 +80,6 @@ define[declaracion]
 ejecuta[statement]
 valor[expr]
 direccion[expr]
-tipo[tipo]
 
 
 
