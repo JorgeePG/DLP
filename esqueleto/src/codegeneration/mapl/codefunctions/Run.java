@@ -16,6 +16,7 @@ public class Run extends AbstractCodeFunction {
 	// class Program(List<CuerpoPrograma> cuerpoProgramas)
 	@Override
 	public Object visit(Program program, Object param) {
+		out("#source \"Test de Generacion de Codigo basico.txt\"");
 		out("call main");
 		out("halt");
 		prepara(program.cuerpoProgramas());

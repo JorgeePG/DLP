@@ -266,7 +266,7 @@ public class TypeChecking extends DefaultVisitor {
 	}
 
 	// class FieldAccess(Expr object, String field)
-	// phase TypeChecking { Tipo type, boolean lvalue }
+	// phase TypeChecking { Tipo type, boolean lvalue, StructDefinition structAccedido }
 	@Override
 	public Object visit(FieldAccess fieldAccess, Object param) {
 
@@ -276,6 +276,7 @@ public class TypeChecking extends DefaultVisitor {
 		// TODO: Remember to initialize SYNTHESIZED attributes <-----
 		// fieldAccess.setType(?);
 		// fieldAccess.setLvalue(?);
+		// fieldAccess.setStructAccedido(?);
 		return null;
 	}
 

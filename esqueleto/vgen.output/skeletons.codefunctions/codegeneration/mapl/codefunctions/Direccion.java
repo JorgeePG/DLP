@@ -14,7 +14,7 @@ public class Direccion extends AbstractCodeFunction {
 
 
 	// class FieldAccess(Expr object, String field)
-	// phase TypeChecking { Tipo type, boolean lvalue }
+	// phase TypeChecking { Tipo type, boolean lvalue, StructDefinition structAccedido }
 	@Override
 	public Object visit(FieldAccess fieldAccess, Object param) {
 

@@ -186,7 +186,7 @@ public class Ejecuta extends AbstractCodeFunction {
     }
     private String getFormatTipo(Tipo tipo) {
 		if(IntType.class.equals(tipo.getClass())) {
-			return "h";
+			return "i";
 		}else if(FloatType.class.equals(tipo.getClass())) {
 			return "f";
 		}else if(CharType.class.equals(tipo.getClass())) {

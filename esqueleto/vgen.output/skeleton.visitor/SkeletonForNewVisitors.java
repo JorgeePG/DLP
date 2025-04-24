@@ -103,7 +103,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class Declaracion(String nombre, Tipo tipo)
-	// phase MemoryAllocation { int address }
+	// phase MemoryAllocation { int address, int ambito }
 	@Override
 	public Object visit(Declaracion declaracion, Object param) {
 
@@ -243,7 +243,7 @@ public class SkeletonForNewVisitors extends DefaultVisitor {
 	}
 
 	// class FieldAccess(Expr object, String field)
-	// phase TypeChecking { Tipo type, boolean lvalue }
+	// phase TypeChecking { Tipo type, boolean lvalue, StructDefinition structAccedido }
 	@Override
 	public Object visit(FieldAccess fieldAccess, Object param) {
 

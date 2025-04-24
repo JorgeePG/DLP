@@ -79,6 +79,7 @@ class Declaracion {
 	+String nombre
 	..<color:#669900> MemoryAllocation </color>..
 	+<color:#669900>int address</color>
+	+<color:#669900>int ambito</color>
 }
 AbstractAST <|-[#808080]- Declaracion
 Declaracion o-[#404040,thickness=2]-  Tipo : tipo >
@@ -153,6 +154,7 @@ class FieldAccess {
 }
 AbstractExpr <|-[#808080]- FieldAccess
 FieldAccess o-[#404040,thickness=2]-  Expr : object >
+FieldAccess -[#3366cc,thickness=3]-  StructDefinition #text:3366cc : structAccedido >
 
 class ArrayAccess {
 }

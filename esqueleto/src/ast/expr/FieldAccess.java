@@ -3,6 +3,7 @@
 package ast.expr;
 
 import ast.tipo.*;
+import ast.cuerpoprograma.*;
 import org.antlr.v4.runtime.Token;
 import visitor.Visitor;
 
@@ -19,6 +20,7 @@ import visitor.Visitor;
 	PHASE TypeChecking
 	expr -> type:tipo
 	expr -> lvalue:boolean
+	fieldAccess -> structAccedido:structDefinition
 */
 public class FieldAccess extends AbstractExpr  {
 
@@ -28,6 +30,9 @@ public class FieldAccess extends AbstractExpr  {
 	// fieldAccess: expr -> object:expr field:string
 	private Expr object;
 	private String field;
+
+    // PHASE TypeChecking
+	private StructDefinition structAccedido;
 
     // ----------------------------------
     // Constructors
@@ -89,6 +94,24 @@ public class FieldAccess extends AbstractExpr  {
 
     public String getField() {
         return field;
+    }
+
+
+
+    // --------------------------------
+    // PHASE TypeChecking
+
+	// Attribute 'structAccedido:structDefinition' 
+
+	public void setStructAccedido(StructDefinition structAccedido) {
+		if (structAccedido == null)
+			throw new IllegalArgumentException("Parameter 'structAccedido' can't be null. Pass a non-null value or use 'structDefinition?' in the abstract grammar");
+		this.structAccedido = structAccedido;
+
+	}
+
+    public StructDefinition getStructAccedido() {
+        return structAccedido;
     }
 
 

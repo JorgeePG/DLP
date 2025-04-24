@@ -18,12 +18,6 @@ public class Prepara extends AbstractCodeFunction {
 	@Override
 	public Object visit(StructDefinition structDefinition, Object param) {
 
-		// prepara(structDefinition.atributos());
-
-		// prepara(structDefinition.metodos());
-
-		out("<instruction>");
-
 		return null;
 	}
 
@@ -31,11 +25,6 @@ public class Prepara extends AbstractCodeFunction {
 	// phase MemoryAllocation { int address }
 	@Override
 	public Object visit(VarDefinition varDefinition, Object param) {
-
-		// define(varDefinition.getDeclaracion());
-
-		out("<instruction>");
-
 		return null;
 	}
 
@@ -45,8 +34,10 @@ public class Prepara extends AbstractCodeFunction {
 	public Object visit(Function function, Object param) {
 
 		// define(function.parametros());
-
+		out(function.getNombre()+":");
+		out("#func "+function.getNombre());
 		ejecuta(function.cuerpo());
+		out("ret");
 		return null;
 	}
 

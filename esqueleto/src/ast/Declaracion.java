@@ -16,7 +16,7 @@ import visitor.Visitor;
 	declaracion -> nombre:string tipo:tipo
 	
 	PHASE MemoryAllocation
-	declaracion -> address:int
+	declaracion -> address:int ambito:int
 */
 public class Declaracion extends AbstractAST  {
 
@@ -29,6 +29,7 @@ public class Declaracion extends AbstractAST  {
 
     // PHASE MemoryAllocation
 	private int address;
+	private int ambito;
 
     // ----------------------------------
     // Constructors
@@ -106,6 +107,18 @@ public class Declaracion extends AbstractAST  {
 
     public int getAddress() {
         return address;
+    }
+
+
+	// Attribute 'ambito:int' 
+
+	public void setAmbito(int ambito) {
+		this.ambito = ambito;
+
+	}
+
+    public int getAmbito() {
+        return ambito;
     }
 
 

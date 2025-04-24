@@ -1,4 +1,4 @@
-ATEGORIES
+CATEGORIES
 statement;
 expr;
 tipo;
@@ -65,10 +65,11 @@ ATTRIBUTE GRAMMAR TypeChecking
 expr -> type:tipo;
 expr -> lvalue:boolean;
 statement -> [inherited] padre:function;
+fieldAccess -> structAccedido:structDefinition;
 
 // -----------------------
 ATTRIBUTE GRAMMAR MemoryAllocation
-declaracion -> [inh] address:int;    // Inherited attribute
+declaracion -> [inh] address:int ambito:int;    // Inherited attribute
 cuerpoPrograma ->[inh] address:int;
 
 // -----------------------

@@ -3,6 +3,7 @@ package semantic;
 import ast.*;
 import ast.cuerpoprograma.Function;
 import ast.cuerpoprograma.StructDefinition;
+import ast.cuerpoprograma.VarDefinition;
 import ast.expr.FunctionCall;
 import ast.expr.Variable;
 import ast.statement.If;
@@ -34,7 +35,6 @@ public class Identification extends DefaultVisitor {
  	@Override
  	public Object visit(Program program, Object param) {
  		variables.set();
- 		// program.getCuerpoProgramas().forEach(cuerpoPrograma -> cuerpoPrograma.accept(this, param));
  		super.visit(program, param);
  		variables.reset();
  		
@@ -51,6 +51,7 @@ public class Identification extends DefaultVisitor {
  		}else {
  			notifyError("Ese struct ya está definido: "+structDefinition.getNombre());
  		}
+ 		
  		// structDefinition.getAtributos().forEach(varDefinition -> varDefinition.accept(this, param));
  		// structDefinition.getMetodos().forEach(function -> function.accept(this, param));
  		super.visit(structDefinition, param);
@@ -97,9 +98,7 @@ public class Identification extends DefaultVisitor {
  		}else {
  			notifyError("La función ya ha sido definida previamente: "+function.getNombre());
  		}
- 		// function.getParametros().forEach(declaracion -> declaracion.accept(this, param));
- 		// function.getTipoRetorno().accept(this, param);
- 		// function.getCuerpo().forEach(statement -> statement.accept(this, param));
+ 		
  		super.visit(function, param);
  		variables.reset();
  		return null;

@@ -268,6 +268,7 @@ public class TypeChecking extends DefaultVisitor {
  			if(struct.getStructDefinition().getAtributos().get(i).getDeclaracion().getNombre().equals(fieldAccess.getField())) {
  				d=struct.getStructDefinition().getAtributos().get(i).getDeclaracion();
  				isDefined=true;
+ 				fieldAccess.setStructAccedido(struct.getStructDefinition());
  				break;
  			}
  		}
@@ -277,10 +278,12 @@ public class TypeChecking extends DefaultVisitor {
  			fieldAccess.setType(d.getTipo());
  			fieldAccess.setLvalue(true);
  		}else {
+ 			//ESTO HACE QUE FALLE
  			fieldAccess.setType(new VoidType());
  			fieldAccess.setLvalue(true);
  		}
  		}else {
+ 			//ESTO HACE QUE FALLE
  			fieldAccess.setLvalue(true);
  	 		fieldAccess.setType(new VoidType());
  		}

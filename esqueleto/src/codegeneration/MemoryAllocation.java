@@ -50,6 +50,7 @@ public class MemoryAllocation extends DefaultVisitor {
  			if(cuerpoPrograma.getClass().equals(VarDefinition.class)) {
  				VarDefinition v= (VarDefinition)cuerpoPrograma;
  				v.getDeclaracion().setAddress(address);
+ 				v.getDeclaracion().setAmbito(1);
  				address += v.getDeclaracion().getTipo().getSize();
  				System.out.println("Variable: "+v.getDeclaracion().getNombre()+" - dirección: "+v.getDeclaracion().getAddress());
  			}
@@ -68,11 +69,11 @@ public class MemoryAllocation extends DefaultVisitor {
   		for(VarDefinition v:structDefinition.getAtributos()) {
   			v.getDeclaracion().setAddress(address);
   			address+=v.getDeclaracion().getTipo().getSize();
+  			v.getDeclaracion().setAmbito(2);
   			System.out.println("Variable: "+v.getDeclaracion().getNombre()+" - dirección: "+v.getDeclaracion().getAddress());
   			v.accept(this, param);
   			
   		}
-  		
   		structDefinition.getMetodos().forEach(function -> function.accept(this, param));
 
   		return null;
@@ -98,6 +99,12 @@ public class MemoryAllocation extends DefaultVisitor {
 	  		address-=declaracion.getTipo().getSize();
  		}
   		function.getTipoRetorno().accept(this, param);
+  		for(Declaracion d : function.getParametros()) {
+ 			d.setAmbito(3);
+ 		}
+ 		for(VarDefinition v : function.getVariables()) {
+ 			v.getDeclaracion().setAmbito(2);
+ 		}
   		
   		return null;
   	}

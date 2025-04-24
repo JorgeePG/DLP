@@ -1,17 +1,80 @@
+#source "Test de Generacion de Codigo basico.txt"
 call main
 halt
-<instruction>
-<instruction>
-<instruction>
-<instruction>
-<instruction>
+main:
+#func main
 
 #line 26
 pusha 0
-<instruction>
-storeh
+pushi 1111
+storei
 
 #line 27
 pusha 2
-<instruction>
+pushf 2222.2
 storef
+
+#line 28
+pusha 6
+pushi 3
+pushi 2
+mul
+add
+pushi 3333
+storei
+
+#line 29
+pusha 16
+pushi 4
+add
+pushf 4444.4
+storef
+
+#line 31
+pusha 0
+loadi
+outi
+pushb 32
+outb
+
+#line 32
+pusha 2
+loadf
+pusha 16
+pushi 4
+add
+loadf
+addf
+outf
+pushb 32
+outb
+
+#line 33
+pusha 6
+pushi 3
+pushi 2
+mul
+add
+loadi
+outi
+pushb 10
+outb
+
+#line 35
+pusha 0
+loadi
+pushi 0
+gti
+pusha 2
+loadf
+pushf 3333.3
+lti
+and
+outi
+
+#line 36
+pusha 2
+loadf
+f2i
+outi
+ret

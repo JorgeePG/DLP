@@ -25,12 +25,8 @@ public class Valor extends AbstractCodeFunction {
 	public Object visit(FieldAccess fieldAccess, Object param) {
 
 		//EL OBJECT ES UNA MALA NOMINACIÓN QUE HICE NO OLVIDARME QUE NOOOOO ES UN OBJECT DE VERDAD
-		
-		// valor(fieldAccess.getObject());
-		// direccion(fieldAccess.getObject());
-
-		out("<instruction>");
-
+		direccion(fieldAccess);
+		out("load"+ getFormatTipo(fieldAccess.getType()));
 		return null;
 	}
 
@@ -39,14 +35,8 @@ public class Valor extends AbstractCodeFunction {
 	@Override
 	public Object visit(ArrayAccess arrayAccess, Object param) {
 
-		// valor(arrayAccess.getArray());
-		// direccion(arrayAccess.getArray());
-
-		// valor(arrayAccess.getIndex());
-		// direccion(arrayAccess.getIndex());
-
-		out("<instruction>");
-
+		direccion(arrayAccess);
+		out("load" + getFormatTipo(arrayAccess.getType()));
 		return null;
 	}
 
@@ -54,12 +44,10 @@ public class Valor extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(Cast cast, Object param) {
-
-		// valor(cast.getTarget());
-		// direccion(cast.getTarget());
-
-		out("<instruction>");
-
+		
+		valor(cast.getTarget());
+		out(getFormatTipo(cast.getTarget().getType())+"2"+getFormatTipo(cast.getTipo()));
+		
 		return null;
 	}
 
@@ -117,13 +105,21 @@ public class Valor extends AbstractCodeFunction {
 	@Override
 	public Object visit(Comparacion comparacion, Object param) {
 
-		// valor(comparacion.getLeft());
-		// direccion(comparacion.getLeft());
-
-		// valor(comparacion.getRight());
-		// direccion(comparacion.getRight());
-
-		out("<instruction>");
+		valor(comparacion.getLeft());
+		valor(comparacion.getRight());
+		if(comparacion.getOperador().equals("<")) {
+			out("lt" + getFormatTipo(comparacion.getType()));
+		}else if(comparacion.getOperador().equals(">")) {
+			out("gt"+ getFormatTipo(comparacion.getType()));
+		}else if(comparacion.getOperador().equals("==")) {
+			out("eq"+ getFormatTipo(comparacion.getType()));
+		}else if(comparacion.getOperador().equals("!=")) {
+			out("nef"+ getFormatTipo(comparacion.getType()));
+		}else if(comparacion.getOperador().equals("<=")) {
+			out("le"+ getFormatTipo(comparacion.getType()));
+		}else if(comparacion.getOperador().equals(">=")) {
+			out("ge"+ getFormatTipo(comparacion.getType()));
+		}
 
 		return null;
 	}
@@ -160,9 +156,10 @@ public class Valor extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(Variable variable, Object param) {
-
-		out("<instruction>");
-
+		
+		direccion(variable);
+		out("load" + getFormatTipo(variable.getType()));
+		
 		return null;
 	}
 
@@ -170,9 +167,7 @@ public class Valor extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(IntLiteral intLiteral, Object param) {
-
-		out("<instruction>");
-
+		out("pushi "+intLiteral.getIntValue());
 		return null;
 	}
 
@@ -180,8 +175,7 @@ public class Valor extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(RealLiteral realLiteral, Object param) {
-
-		out("<instruction>");
+		out("pushf "+realLiteral.getFloatValue());
 
 		return null;
 	}
@@ -190,16 +184,14 @@ public class Valor extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(CharLiteral charLiteral, Object param) {
-
-		out("<instruction>");
-
+		out("pushc "+charLiteral.getCharValue());
 		return null;
 	}
 	
 	// Auxiliary methods for the generation of code
     private String getFormatTipo(Tipo tipo) {
 		if(IntType.class.equals(tipo.getClass())) {
-			return "h";
+			return "i";
 		}else if(FloatType.class.equals(tipo.getClass())) {
 			return "f";
 		}else if(CharType.class.equals(tipo.getClass())) {

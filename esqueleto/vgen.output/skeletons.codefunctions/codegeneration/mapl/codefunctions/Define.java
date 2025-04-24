@@ -14,7 +14,7 @@ public class Define extends AbstractCodeFunction {
 
 
 	// class Declaracion(String nombre, Tipo tipo)
-	// phase MemoryAllocation { int address }
+	// phase MemoryAllocation { int address, int ambito }
 	@Override
 	public Object visit(Declaracion declaracion, Object param) {
 
