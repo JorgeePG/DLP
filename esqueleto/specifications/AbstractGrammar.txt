@@ -1,4 +1,4 @@
-CATEGORIES
+ATEGORIES
 statement;
 expr;
 tipo;

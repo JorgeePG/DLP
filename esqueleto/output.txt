@@ -1,4 +1,17 @@
-<instruction>
-<instruction>
-<instruction>
+call main
 halt
+<instruction>
+<instruction>
+<instruction>
+<instruction>
+<instruction>
+
+#line 26
+pusha 0
+<instruction>
+storeh
+
+#line 27
+pusha 2
+<instruction>
+storef

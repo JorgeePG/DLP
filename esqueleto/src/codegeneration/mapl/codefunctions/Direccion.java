@@ -18,7 +18,7 @@ public class Direccion extends AbstractCodeFunction {
 	@Override
 	public Object visit(Variable variable, Object param) {
 
-		out("pusha"+variable.getDeclaracion().getAddress());
+		out("pusha "+variable.getDeclaracion().getAddress());
 
 		return null;
 	}

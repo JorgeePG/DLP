@@ -16,9 +16,10 @@ public class Run extends AbstractCodeFunction {
 	// class Program(List<CuerpoPrograma> cuerpoProgramas)
 	@Override
 	public Object visit(Program program, Object param) {
-
-		prepara(program.cuerpoProgramas());
+		out("call main");
 		out("halt");
+		prepara(program.cuerpoProgramas());
+		
 
 		return null;
 	}

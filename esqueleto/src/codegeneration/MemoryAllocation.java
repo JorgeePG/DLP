@@ -49,9 +49,9 @@ public class MemoryAllocation extends DefaultVisitor {
  			//Sacamos las variables globales y les damos una dirección de memoria.
  			if(cuerpoPrograma.getClass().equals(VarDefinition.class)) {
  				VarDefinition v= (VarDefinition)cuerpoPrograma;
- 				cuerpoPrograma.setAddress(address);
+ 				v.getDeclaracion().setAddress(address);
  				address += v.getDeclaracion().getTipo().getSize();
- 				System.out.println("Variable: "+v.getDeclaracion().getNombre()+" - dirección: "+cuerpoPrograma.getAddress());
+ 				System.out.println("Variable: "+v.getDeclaracion().getNombre()+" - dirección: "+v.getDeclaracion().getAddress());
  			}
  			
  		}
