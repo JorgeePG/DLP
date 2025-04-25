@@ -2,7 +2,9 @@
 
 package codegeneration.mapl.codefunctions;
 
+import ast.Declaracion;
 import ast.cuerpoprograma.*;
+import ast.tipo.VoidType;
 import codegeneration.mapl.*;
 
 
@@ -37,7 +39,20 @@ public class Prepara extends AbstractCodeFunction {
 		out(function.getNombre()+":");
 		out("#func "+function.getNombre());
 		ejecuta(function.cuerpo());
-		out("ret");
+		int totalVarSize=0;
+		for(VarDefinition v:function.getVariables()) {
+			totalVarSize+=v.getDeclaracion().getTipo().getSize();
+		}
+		int totalParamSize=0;
+		for(Declaracion d:function.getParametros()) {
+			totalParamSize+=d.getTipo().getSize();
+		}
+		if(!function.getTipoRetorno().getClass().equals(VoidType.class)) {
+			out("ret "+function.getTipoRetorno().getSize()+", "+totalVarSize+", "+totalParamSize);
+		}else {
+			out("ret 0, "+totalVarSize+", "+totalParamSize);
+		}
+		
 		return null;
 	}
 

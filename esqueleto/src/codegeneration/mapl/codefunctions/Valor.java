@@ -3,12 +3,15 @@
 package codegeneration.mapl.codefunctions;
 
 import ast.AST;
+import ast.Declaracion;
 import ast.Position;
+import ast.cuerpoprograma.VarDefinition;
 import ast.expr.*;
 import ast.tipo.CharType;
 import ast.tipo.FloatType;
 import ast.tipo.IntType;
 import ast.tipo.Tipo;
+import ast.tipo.VoidType;
 import codegeneration.mapl.*;
 
 
@@ -108,21 +111,24 @@ public class Valor extends AbstractCodeFunction {
 		valor(comparacion.getLeft());
 		valor(comparacion.getRight());
 		if(comparacion.getOperador().equals("<")) {
-			out("lt" + getFormatTipo(comparacion.getType()));
+			out("lt" + getFormatoMayorTipo(comparacion.getLeft().getType(),comparacion.getRight().getType()));
 		}else if(comparacion.getOperador().equals(">")) {
-			out("gt"+ getFormatTipo(comparacion.getType()));
+			out("gt"+ getFormatoMayorTipo(comparacion.getLeft().getType(),comparacion.getRight().getType()));
 		}else if(comparacion.getOperador().equals("==")) {
-			out("eq"+ getFormatTipo(comparacion.getType()));
+			out("eq"+ getFormatoMayorTipo(comparacion.getLeft().getType(),comparacion.getRight().getType()));
 		}else if(comparacion.getOperador().equals("!=")) {
-			out("nef"+ getFormatTipo(comparacion.getType()));
+			out("nef"+getFormatoMayorTipo(comparacion.getLeft().getType(),comparacion.getRight().getType()));
 		}else if(comparacion.getOperador().equals("<=")) {
-			out("le"+ getFormatTipo(comparacion.getType()));
+			out("le"+ getFormatoMayorTipo(comparacion.getLeft().getType(),comparacion.getRight().getType()));
 		}else if(comparacion.getOperador().equals(">=")) {
-			out("ge"+ getFormatTipo(comparacion.getType()));
+			out("ge"+ getFormatoMayorTipo(comparacion.getLeft().getType(),comparacion.getRight().getType()));
 		}
 
 		return null;
 	}
+
+	
+
 
 	// class FunctionCall(String nombre, List<Expr> exprs)
 	// phase Identification { Function function }
@@ -130,12 +136,25 @@ public class Valor extends AbstractCodeFunction {
 	@Override
 	public Object visit(FunctionCall functionCall, Object param) {
 
-		// valor(functionCall.exprs());
-		// direccion(functionCall.exprs());
-
-		out("<instruction>");
-
-		return null;
+		// define(function.parametros());
+				out(functionCall.getNombre()+":");
+				out("#func "+functionCall.getNombre());
+				ejecuta(functionCall.getFunction().cuerpo());
+				int totalVarSize=0;
+				for(VarDefinition v:functionCall.getFunction().getVariables()) {
+					totalVarSize+=v.getDeclaracion().getTipo().getSize();
+				}
+				int totalParamSize=0;
+				for(Declaracion d:functionCall.getFunction().getParametros()) {
+					totalParamSize+=d.getTipo().getSize();
+				}
+				if(!functionCall.getFunction().getTipoRetorno().getClass().equals(VoidType.class)) {
+					out("ret "+functionCall.getFunction().getTipoRetorno().getSize()+", "+totalVarSize+", "+totalParamSize);
+				}else {
+					out("ret 0, "+totalVarSize+", "+totalParamSize);
+				}
+				
+				return null;
 	}
 
 	// class Parentesis(Expr expr)
@@ -143,11 +162,7 @@ public class Valor extends AbstractCodeFunction {
 	@Override
 	public Object visit(Parentesis parentesis, Object param) {
 
-		// valor(parentesis.getExpr());
-		// direccion(parentesis.getExpr());
-
-		out("<instruction>");
-
+		valor(parentesis.getExpr());
 		return null;
 	}
 
@@ -199,5 +214,10 @@ public class Valor extends AbstractCodeFunction {
 		}
 		return "";
 	}
+    
+    private String getFormatoMayorTipo(Tipo type, Tipo tipo) {	
+		return type.getSize()>tipo.getSize()? getFormatTipo(type):getFormatTipo(tipo);
+	}
+    
 
 }

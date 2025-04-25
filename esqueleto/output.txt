@@ -1,80 +1,195 @@
 #source "Test de Generacion de Codigo basico.txt"
 call main
 halt
+p:
+#func p
+ret 0, 0, 0
+f:
+#func f
+
+#line 47
+pusha BP
+pusha -4
+add
+pusha BP
+pusha 6
+add
+loadf
+pushf 10.0
+mulf
+storef
+
+#line 48
+pusha BP
+pusha -5
+add
+pushc '
+storeb
+<instruction>
+ret 2, 7, 6
+inicializa:
+#func inicializa
+
+#line 63
+pusha 11
+pushi 0
+pushi 6
+mul
+add
+pushi 0
+pushi 2
+mul
+add
+pushi 0
+storei
+
+#line 64
+pusha 11
+pushi 0
+pushi 6
+mul
+add
+pushi 1
+pushi 2
+mul
+add
+pushi 1
+storei
+
+#line 65
+pusha 11
+pushi 0
+pushi 6
+mul
+add
+pushi 2
+pushi 2
+mul
+add
+pushi 1
+storei
+
+#line 66
+pusha BP
+pusha -2
+add
+pushi 1
+storei
+<instruction>
+ret 0, 2, 0
 main:
 #func main
+<instruction>
 
-#line 26
-pusha 0
-pushi 1111
+#line 83
+pusha BP
+pusha -2
+add
+pushi 0
 storei
 
-#line 27
-pusha 2
-pushf 2222.2
-storef
-
-#line 28
-pusha 6
-pushi 3
+#line 84
+pusha 0
 pushi 2
-mul
 add
-pushi 3333
+pushc '
+storeb
+
+#line 85
+pusha 0
+pushi 0
+add
+pushc '
+b2i
 storei
 
-#line 29
-pusha 16
-pushi 4
+#line 87
+f:
+#func f
+
+#line 47
+pusha BP
+pusha -4
 add
-pushf 4444.4
+pusha BP
+pusha 6
+add
+loadf
+pushf 10.0
+mulf
 storef
 
-#line 31
-pusha 0
-loadi
+#line 48
+pusha BP
+pusha -5
+add
+pushc '
+storeb
+<instruction>
+ret 2, 7, 6
 outi
-pushb 32
+pushb 10
 outb
+<instruction>
+<instruction>
 
-#line 32
-pusha 2
-loadf
-pusha 16
-pushi 4
+#line 91
+pusha BP
+pusha -2
 add
-loadf
-addf
-outf
-pushb 32
-outb
+pushi 0
+storei
+<instruction>
 
-#line 33
-pusha 6
-pushi 3
+#line 106
+pusha 3
+pushi 1
+pushi 4
+mul
+add
+pushi 0
+add
+pushi 1
 pushi 2
 mul
+add
+pushi 0
+add
+pushi 56
+storei
+
+#line 107
+pusha 3
+pushi 1
+pushi 4
+mul
+add
+pushi 0
+add
+pushi 1
+pushi 2
+mul
+add
+pushi 0
 add
 loadi
 outi
 pushb 10
 outb
 
-#line 35
-pusha 0
-loadi
+#line 109
+pusha BP
+pusha -2
+add
 pushi 0
-gti
-pusha 2
-loadf
-pushf 3333.3
-lti
-and
-outi
+storei
+<instruction>
 
-#line 36
-pusha 2
-loadf
-f2i
-outi
-ret
+#line 120
+pusha BP
+pusha -2
+add
+pushi 0
+storei
+<instruction>
+ret 0, 4, 0

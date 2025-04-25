@@ -5,13 +5,16 @@ package codegeneration.mapl.codefunctions;
 import java.util.List;
 
 import ast.AST;
+import ast.Declaracion;
 import ast.Position;
+import ast.cuerpoprograma.VarDefinition;
 import ast.expr.Expr;
 import ast.statement.*;
 import ast.tipo.CharType;
 import ast.tipo.FloatType;
 import ast.tipo.IntType;
 import ast.tipo.Tipo;
+import ast.tipo.VoidType;
 import codegeneration.mapl.*;
 
 
@@ -92,11 +95,22 @@ public class Ejecuta extends AbstractCodeFunction {
 	@Override
 	public Object visit(Return returnValue, Object param) {
 
-		// valor(returnValue.getExpr());
-		// direccion(returnValue.getExpr());
-
-		out("<instruction>");
-
+		valor(returnValue.getExpr());
+		
+		int totalVarSize=0;
+		for(VarDefinition v:returnValue.getPadre().getVariables()) {
+			totalVarSize+=v.getDeclaracion().getTipo().getSize();
+		}
+		int totalParamSize=0;
+		for(Declaracion d:returnValue.getPadre().getParametros()) {
+			totalParamSize+=d.getTipo().getSize();
+		}
+		if(!returnValue.getPadre().getTipoRetorno().getClass().equals(VoidType.class)) {
+			out("ret "+returnValue.getPadre().getTipoRetorno().getSize()+", "+totalVarSize+", "+totalParamSize);
+		}else {
+			out("ret 0, "+totalVarSize+", "+totalParamSize);
+		}
+		
 		return null;
 	}
 
@@ -105,10 +119,7 @@ public class Ejecuta extends AbstractCodeFunction {
 	@Override
 	public Object visit(OneExpr oneExpr, Object param) {
 
-		// valor(oneExpr.getExpr());
-		// direccion(oneExpr.getExpr());
-
-		out("<instruction>");
+		valor(oneExpr.getExpr());
 
 		return null;
 	}
