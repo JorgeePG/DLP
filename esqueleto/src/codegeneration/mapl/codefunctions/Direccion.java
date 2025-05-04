@@ -22,7 +22,7 @@ public class Direccion extends AbstractCodeFunction {
 			out("pusha "+variable.getDeclaracion().getAddress());
 		}else {
 			out("pusha BP");
-			out("pusha "+variable.getDeclaracion().getAddress());
+			out("push "+variable.getDeclaracion().getAddress());
 			out("add");
 		}
 

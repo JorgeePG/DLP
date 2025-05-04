@@ -38,7 +38,7 @@ public class Prepara extends AbstractCodeFunction {
 		// define(function.parametros());
 		out(function.getNombre()+":");
 		out("#func "+function.getNombre());
-		ejecuta(function.cuerpo());
+		
 		int totalVarSize=0;
 		for(VarDefinition v:function.getVariables()) {
 			totalVarSize+=v.getDeclaracion().getTipo().getSize();
@@ -47,6 +47,8 @@ public class Prepara extends AbstractCodeFunction {
 		for(Declaracion d:function.getParametros()) {
 			totalParamSize+=d.getTipo().getSize();
 		}
+		out("enter "+totalVarSize);
+		ejecuta(function.cuerpo());
 		if(!function.getTipoRetorno().getClass().equals(VoidType.class)) {
 			out("ret "+function.getTipoRetorno().getSize()+", "+totalVarSize+", "+totalParamSize);
 		}else {

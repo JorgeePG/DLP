@@ -3,6 +3,7 @@
 package codegeneration.mapl.codefunctions;
 
 import java.util.List;
+import java.util.UUID;
 
 import ast.AST;
 import ast.Declaracion;
@@ -128,15 +129,25 @@ public class Ejecuta extends AbstractCodeFunction {
 	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(If ifValue, Object param) {
-
-		// valor(ifValue.getCondition());
-		// direccion(ifValue.getCondition());
-
-		// ejecuta(ifValue.thenBlock());
-
-		// ejecuta(ifValue.elseBlock());
-
-		out("<instruction>");
+		String elseLabel="else_block"+contadorUnico++;
+		String finLabel="if_end_label"+contadorUnico++;
+		
+		valor(ifValue.getCondition());
+		out("jz "+elseLabel);
+		// Procesar thenBlock (sin recursión)
+	    for (Statement stmt : ifValue.thenBlock().toList()) {
+	    	ejecuta(stmt);
+	    }
+		out("jmp "+finLabel);
+		//Etiqueta para el bloque del else
+		out(elseLabel+":");
+		if (ifValue.elseBlock() != null) {
+			for (Statement stmt : ifValue.elseBlock().toList()) {
+				//System.out.println(stmt.toString());
+				ejecuta(stmt);
+	        }
+		}
+		out(finLabel+":");
 
 		return null;
 	}
@@ -146,14 +157,21 @@ public class Ejecuta extends AbstractCodeFunction {
 	@Override
 	public Object visit(While whileValue, Object param) {
 
-		// valor(whileValue.getCondition());
-		// direccion(whileValue.getCondition());
-
-		// ejecuta(whileValue.body());
-
-		out("<instruction>");
-
-		return null;
+		String startLabel = "while_start_" +contadorUnico++;
+	    String endLabel = "while_end_" +contadorUnico++;
+	    
+	    out(startLabel + ":");
+	    valor(whileValue.getCondition());
+	    out("jz " + endLabel);
+	    
+	    // Procesar el cuerpo del while (sin recursión)
+	    for (Statement stmt : whileValue.getBody()) {
+	    	ejecuta(stmt);
+	    }
+	    
+	    out("jmp " + startLabel);
+	    out(endLabel + ":");
+	    return null;
 	}
 
 	// class Read(Expr expr)
@@ -161,10 +179,11 @@ public class Ejecuta extends AbstractCodeFunction {
 	@Override
 	public Object visit(Read read, Object param) {
 
-		// valor(read.getExpr());
-		// direccion(read.getExpr());
-
-		out("<instruction>");
+		line(read);
+		
+		direccion(read.getExpr());
+		out("in"+getFormatTipo(read.getExpr().getType()));
+		out("store"+getFormatTipo(read.getExpr().getType()));
 
 		return null;
 	}
@@ -175,16 +194,20 @@ public class Ejecuta extends AbstractCodeFunction {
 	@Override
 	public Object visit(StmtFunctionCall stmtFunctionCall, Object param) {
 
-		// valor(stmtFunctionCall.exprs());
-		// direccion(stmtFunctionCall.exprs());
-
-		out("<instruction>");
+		if(stmtFunctionCall.getExprs().size()>0) {
+			for(Expr e:stmtFunctionCall.getExprs()) {
+				valor(e);
+			}
+		}
+		out("call "+stmtFunctionCall.getNombre());
 
 		return null;
 	}
 	
 	// Auxiliary methods for the generation of code
 
+	private int contadorUnico=0;
+	
     private void line(AST node) {
         line(node.end());
     }
@@ -205,5 +228,6 @@ public class Ejecuta extends AbstractCodeFunction {
 		}
 		return "";
 	}
+    
 
 }

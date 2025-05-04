@@ -2,34 +2,45 @@
 
 package codegeneration.mapl.codefunctions;
 
-import ast.AST;
 import ast.Declaracion;
-import ast.Position;
 import ast.cuerpoprograma.VarDefinition;
-import ast.expr.*;
+import ast.expr.ArrayAccess;
+import ast.expr.Cast;
+import ast.expr.CharLiteral;
+import ast.expr.Comparacion;
+import ast.expr.Expr;
+import ast.expr.FieldAccess;
+import ast.expr.FunctionCall;
+import ast.expr.IntLiteral;
+import ast.expr.Not;
+import ast.expr.OperacionAritmetica;
+import ast.expr.OperacionLogica;
+import ast.expr.Parentesis;
+import ast.expr.RealLiteral;
+import ast.expr.Variable;
 import ast.tipo.CharType;
 import ast.tipo.FloatType;
 import ast.tipo.IntType;
 import ast.tipo.Tipo;
 import ast.tipo.VoidType;
-import codegeneration.mapl.*;
-
+import codegeneration.mapl.AbstractCodeFunction;
+import codegeneration.mapl.MaplCodeSpecification;
 
 public class Valor extends AbstractCodeFunction {
 
-    public Valor(MaplCodeSpecification specification) {
-        super(specification);
-    }
-
+	public Valor(MaplCodeSpecification specification) {
+		super(specification);
+	}
 
 	// class FieldAccess(Expr object, String field)
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(FieldAccess fieldAccess, Object param) {
 
-		//EL OBJECT ES UNA MALA NOMINACIÓN QUE HICE NO OLVIDARME QUE NOOOOO ES UN OBJECT DE VERDAD
+		// EL OBJECT ES UNA MALA NOMINACIÓN QUE HICE NO OLVIDARME QUE NOOOOO ES UN
+		// OBJECT DE VERDAD
 		direccion(fieldAccess);
-		out("load"+ getFormatTipo(fieldAccess.getType()));
+		out("load" + getFormatTipo(fieldAccess.getType()));
 		return null;
 	}
 
@@ -47,10 +58,10 @@ public class Valor extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(Cast cast, Object param) {
-		
+
 		valor(cast.getTarget());
-		out(getFormatTipo(cast.getTarget().getType())+"2"+getFormatTipo(cast.getTipo()));
-		
+		out(getFormatTipo(cast.getTarget().getType()) + "2" + getFormatTipo(cast.getTipo()));
+
 		return null;
 	}
 
@@ -73,14 +84,14 @@ public class Valor extends AbstractCodeFunction {
 		valor(operacionAritmetica.getLeft());
 		valor(operacionAritmetica.getRight());
 
-		if(operacionAritmetica.getOperador().equals("+")) {
-			out("add"+getFormatTipo(operacionAritmetica.getType()));
-		}else if(operacionAritmetica.getOperador().equals("-")) {
-			out("sub"+getFormatTipo(operacionAritmetica.getType()));
-		}else if(operacionAritmetica.getOperador().equals("*")) {
-			out("mul"+getFormatTipo(operacionAritmetica.getType()));
-		}else if(operacionAritmetica.getOperador().equals("/")) {
-			out("div"+getFormatTipo(operacionAritmetica.getType()));
+		if (operacionAritmetica.getOperador().equals("+")) {
+			out("add" + getFormatTipo(operacionAritmetica.getType()));
+		} else if (operacionAritmetica.getOperador().equals("-")) {
+			out("sub" + getFormatTipo(operacionAritmetica.getType()));
+		} else if (operacionAritmetica.getOperador().equals("*")) {
+			out("mul" + getFormatTipo(operacionAritmetica.getType()));
+		} else if (operacionAritmetica.getOperador().equals("/")) {
+			out("div" + getFormatTipo(operacionAritmetica.getType()));
 		}
 
 		return null;
@@ -94,9 +105,9 @@ public class Valor extends AbstractCodeFunction {
 		valor(operacionLogica.getLeft());
 		valor(operacionLogica.getRight());
 
-		if(operacionLogica.getOperador().equals("&&")) {
+		if (operacionLogica.getOperador().equals("&&")) {
 			out("and");
-		}else if(operacionLogica.getOperador().equals("||")) {
+		} else if (operacionLogica.getOperador().equals("||")) {
 			out("or");
 		}
 
@@ -110,25 +121,22 @@ public class Valor extends AbstractCodeFunction {
 
 		valor(comparacion.getLeft());
 		valor(comparacion.getRight());
-		if(comparacion.getOperador().equals("<")) {
-			out("lt" + getFormatoMayorTipo(comparacion.getLeft().getType(),comparacion.getRight().getType()));
-		}else if(comparacion.getOperador().equals(">")) {
-			out("gt"+ getFormatoMayorTipo(comparacion.getLeft().getType(),comparacion.getRight().getType()));
-		}else if(comparacion.getOperador().equals("==")) {
-			out("eq"+ getFormatoMayorTipo(comparacion.getLeft().getType(),comparacion.getRight().getType()));
-		}else if(comparacion.getOperador().equals("!=")) {
-			out("nef"+getFormatoMayorTipo(comparacion.getLeft().getType(),comparacion.getRight().getType()));
-		}else if(comparacion.getOperador().equals("<=")) {
-			out("le"+ getFormatoMayorTipo(comparacion.getLeft().getType(),comparacion.getRight().getType()));
-		}else if(comparacion.getOperador().equals(">=")) {
-			out("ge"+ getFormatoMayorTipo(comparacion.getLeft().getType(),comparacion.getRight().getType()));
+		if (comparacion.getOperador().equals("<")) {
+			out("lt" + getFormatoMayorTipo(comparacion.getLeft().getType(), comparacion.getRight().getType()));
+		} else if (comparacion.getOperador().equals(">")) {
+			out("gt" + getFormatoMayorTipo(comparacion.getLeft().getType(), comparacion.getRight().getType()));
+		} else if (comparacion.getOperador().equals("==")) {
+			out("eq" + getFormatoMayorTipo(comparacion.getLeft().getType(), comparacion.getRight().getType()));
+		} else if (comparacion.getOperador().equals("!=")) {
+			out("nef" + getFormatoMayorTipo(comparacion.getLeft().getType(), comparacion.getRight().getType()));
+		} else if (comparacion.getOperador().equals("<=")) {
+			out("le" + getFormatoMayorTipo(comparacion.getLeft().getType(), comparacion.getRight().getType()));
+		} else if (comparacion.getOperador().equals(">=")) {
+			out("ge" + getFormatoMayorTipo(comparacion.getLeft().getType(), comparacion.getRight().getType()));
 		}
 
 		return null;
 	}
-
-	
-
 
 	// class FunctionCall(String nombre, List<Expr> exprs)
 	// phase Identification { Function function }
@@ -136,25 +144,14 @@ public class Valor extends AbstractCodeFunction {
 	@Override
 	public Object visit(FunctionCall functionCall, Object param) {
 
-		// define(function.parametros());
-				out(functionCall.getNombre()+":");
-				out("#func "+functionCall.getNombre());
-				ejecuta(functionCall.getFunction().cuerpo());
-				int totalVarSize=0;
-				for(VarDefinition v:functionCall.getFunction().getVariables()) {
-					totalVarSize+=v.getDeclaracion().getTipo().getSize();
-				}
-				int totalParamSize=0;
-				for(Declaracion d:functionCall.getFunction().getParametros()) {
-					totalParamSize+=d.getTipo().getSize();
-				}
-				if(!functionCall.getFunction().getTipoRetorno().getClass().equals(VoidType.class)) {
-					out("ret "+functionCall.getFunction().getTipoRetorno().getSize()+", "+totalVarSize+", "+totalParamSize);
-				}else {
-					out("ret 0, "+totalVarSize+", "+totalParamSize);
-				}
-				
-				return null;
+		if(functionCall.getExprs().size()>0) {
+			for(Expr e:functionCall.getExprs()) {
+				valor(e);
+			}
+		}
+		out("call "+functionCall.getNombre());
+
+		return null;
 	}
 
 	// class Parentesis(Expr expr)
@@ -171,10 +168,10 @@ public class Valor extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(Variable variable, Object param) {
-		
+
 		direccion(variable);
 		out("load" + getFormatTipo(variable.getType()));
-		
+
 		return null;
 	}
 
@@ -182,7 +179,7 @@ public class Valor extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(IntLiteral intLiteral, Object param) {
-		out("pushi "+intLiteral.getIntValue());
+		out("pushi " + intLiteral.getIntValue());
 		return null;
 	}
 
@@ -190,7 +187,7 @@ public class Valor extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(RealLiteral realLiteral, Object param) {
-		out("pushf "+realLiteral.getFloatValue());
+		out("pushf " + realLiteral.getFloatValue());
 
 		return null;
 	}
@@ -199,25 +196,24 @@ public class Valor extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(CharLiteral charLiteral, Object param) {
-		out("pushc "+charLiteral.getCharValue());
+		out("pushb " + charLiteral.getCharValue());
 		return null;
 	}
-	
+
 	// Auxiliary methods for the generation of code
-    private String getFormatTipo(Tipo tipo) {
-		if(IntType.class.equals(tipo.getClass())) {
+	private String getFormatTipo(Tipo tipo) {
+		if (IntType.class.equals(tipo.getClass())) {
 			return "i";
-		}else if(FloatType.class.equals(tipo.getClass())) {
+		} else if (FloatType.class.equals(tipo.getClass())) {
 			return "f";
-		}else if(CharType.class.equals(tipo.getClass())) {
+		} else if (CharType.class.equals(tipo.getClass())) {
 			return "b";
 		}
 		return "";
 	}
-    
-    private String getFormatoMayorTipo(Tipo type, Tipo tipo) {	
-		return type.getSize()>tipo.getSize()? getFormatTipo(type):getFormatTipo(tipo);
+
+	private String getFormatoMayorTipo(Tipo type, Tipo tipo) {
+		return type.getSize() > tipo.getSize() ? getFormatTipo(type) : getFormatTipo(tipo);
 	}
-    
 
 }
