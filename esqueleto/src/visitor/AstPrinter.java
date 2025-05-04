@@ -528,12 +528,12 @@ public class AstPrinter implements Visitor {
 		int indent = ((Integer)param);
 
 		// Imprimir los hijos (y recorrer si son nodos del AST)
-        printNonNodeChild(indent + 1, "charValue", "char", charLiteral.getCharValue());
+        printNonNodeChild(indent + 1, "name", "String", charLiteral.getName());
 
 		// Imprimir el 'toString()' de los atributos (pero no recorrer)
         printToString(indent + 1, "vgen-attribute-phase-1", "type", "Tipo", charLiteral.getType());
         printToString(indent + 1, "vgen-attribute-phase-1", "lvalue", "boolean", charLiteral.isLvalue());
-		printUnknownFields(indent + 1, charLiteral, "charValue", "type", "lvalue");
+		printUnknownFields(indent + 1, charLiteral, "name", "type", "lvalue");
 		return null;
 	}
 

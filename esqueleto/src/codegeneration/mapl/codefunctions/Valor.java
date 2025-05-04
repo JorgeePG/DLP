@@ -196,7 +196,9 @@ public class Valor extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(CharLiteral charLiteral, Object param) {
-		out("pushb " + charLiteral.getCharValue());
+		char caracter = charLiteral.getName().charAt(1);
+		byte byteVal = (byte) caracter; // Convierte el char a byte (1 byte)
+		out("pushb " + byteVal);
 		return null;
 	}
 

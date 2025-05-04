@@ -40,7 +40,7 @@ parentesis:expr -> expr;
 variable:expr -> nombre:string;
 intLiteral:expr -> int;
 realLiteral:expr -> float;
-charLiteral:expr -> char;
+charLiteral:expr -> string;
 
 // Tipos
 intType:tipo ->;

@@ -359,7 +359,7 @@ public class Identification extends DefaultVisitor {
 		return null;
 	}
 
-	// class CharLiteral(char charValue)
+	// class CharLiteral(String name)
 	@Override
 	public Object visit(CharLiteral charLiteral, Object param) {
 

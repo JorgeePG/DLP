@@ -25,7 +25,7 @@ storef
 pusha BP
 push -5
 add
-pushb '
+pushb 48
 storeb
 pusha BP
 push 4
@@ -266,14 +266,14 @@ storei
 pusha 0
 pushi 2
 add
-pushb '
+pushb 48
 storeb
 
 #line 85
 pusha 0
 pushi 0
 add
-pushb '
+pushb 48
 b2i
 storei
 
@@ -313,7 +313,7 @@ lti
 jz while_end_5
 
 #line 93
-pushb '
+pushb 40
 outb
 
 #line 94
@@ -326,11 +326,11 @@ addi
 outi
 
 #line 95
-pushb '
+pushb 41
 outb
 
 #line 96
-pushb '
+pushb 32
 outb
 
 #line 97
@@ -350,7 +350,7 @@ loadi
 outi
 
 #line 98
-pushb '
+pushb 43
 outb
 
 #line 99
@@ -370,7 +370,7 @@ loadi
 outi
 
 #line 100
-pushb '
+pushb 61
 outb
 
 #line 101
@@ -390,7 +390,7 @@ loadi
 outi
 
 #line 102
-pushb '
+pushb 92
 outb
 
 #line 103

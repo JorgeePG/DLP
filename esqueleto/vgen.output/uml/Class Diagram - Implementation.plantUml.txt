@@ -223,7 +223,7 @@ class RealLiteral {
 AbstractExpr <|-[#808080]- RealLiteral
 
 class CharLiteral {
-	+char charValue
+	+String name
 }
 AbstractExpr <|-[#808080]- CharLiteral
 

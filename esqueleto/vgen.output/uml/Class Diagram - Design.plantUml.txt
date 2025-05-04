@@ -209,7 +209,7 @@ class RealLiteral {
 Expr <|-[#808080]- RealLiteral
 
 class CharLiteral {
-	+char charValue
+	+String name
 }
 Expr <|-[#808080]- CharLiteral
 

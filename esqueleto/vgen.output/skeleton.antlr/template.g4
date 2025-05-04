@@ -67,7 +67,7 @@ expr returns[Expr ast]
     | nombre=IDENT                        { $ast = new Variable($nombre); }                      
     | INT_LITERAL                         { $ast = new IntLiteral($INT_LITERAL); }               
     | FLOAT_LITERAL                       { $ast = new RealLiteral($FLOAT_LITERAL); }            
-    | CHAR_LITERAL                        { $ast = new CharLiteral($CHAR_LITERAL); }             
+    | name=IDENT                          { $ast = new CharLiteral($name); }                     
 	;
 
 
@@ -77,4 +77,3 @@ expr returns[Expr ast]
 IDENT: [a-zA-Z_][a-zA-Z0-9_]*;
 FLOAT_LITERAL: [0-9]+ '.' [0-9]+;
 INT_LITERAL: [0-9]+;
-CHAR_LITERAL: '\'' ~[\t\r\n] '\'' | '\'\\n\'';
