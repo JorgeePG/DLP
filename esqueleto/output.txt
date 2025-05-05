@@ -8,6 +8,8 @@ potencia:
 #local total:real
 #ret real
 enter 4
+
+#line 21
 pusha BP
 push 4
 add
@@ -24,6 +26,8 @@ pushf 1.0
 storef
 jmp if_end_label1
 else_block0:
+
+#line 21
 pusha BP
 push 4
 add
@@ -62,6 +66,8 @@ push 6
 add
 loadf
 storef
+
+#line 21
 while_start_4:
 pusha BP
 push 4
@@ -101,6 +107,8 @@ jmp while_start_4
 while_end_5:
 if_end_label3:
 if_end_label1:
+
+#line 25
 pusha BP
 push -4
 add
@@ -126,6 +134,8 @@ loadf
 pushf 12.0
 divf
 storef
+
+#line 32
 pusha BP
 push 10
 add

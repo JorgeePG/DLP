@@ -4,9 +4,11 @@ package codegeneration.mapl.codefunctions;
 
 import ast.Declaracion;
 import ast.cuerpoprograma.*;
+import ast.tipo.ArrayType;
 import ast.tipo.CharType;
 import ast.tipo.FloatType;
 import ast.tipo.IntType;
+import ast.tipo.NomType;
 import ast.tipo.Tipo;
 import ast.tipo.VoidType;
 import codegeneration.mapl.*;
@@ -23,7 +25,11 @@ public class Prepara extends AbstractCodeFunction {
 	// phase MemoryAllocation { int address }
 	@Override
 	public Object visit(StructDefinition structDefinition, Object param) {
-
+		out("#type "+structDefinition.getNombre()+": {");
+		for (VarDefinition v:structDefinition.getAtributos()) {
+			out(v.getDeclaracion().getNombre()+":"+sacaTipoMapl(v.getDeclaracion().getTipo()));
+		}
+		out("}");
 		return null;
 	}
 
@@ -31,6 +37,7 @@ public class Prepara extends AbstractCodeFunction {
 	// phase MemoryAllocation { int address }
 	@Override
 	public Object visit(VarDefinition varDefinition, Object param) {
+		out("#global "+varDefinition.getDeclaracion().getNombre()+":"+sacaTipoMapl(varDefinition.getDeclaracion().getTipo()));
 		return null;
 	}
 
@@ -72,6 +79,12 @@ public class Prepara extends AbstractCodeFunction {
 			return "real";
 		} else if (CharType.class.equals(tipo.getClass())) {
 			return "byte";
+		} else if(NomType.class.equals(tipo.getClass())) {
+			NomType n = (NomType)tipo;
+			return n.getNombre();
+		}else if(ArrayType.class.equals(tipo.getClass())) {
+			ArrayType a= (ArrayType)tipo;
+			return a.getSize()+ " * "+ sacaTipoMapl(a.getTipoBase());
 		}
 		return "void";
 	}

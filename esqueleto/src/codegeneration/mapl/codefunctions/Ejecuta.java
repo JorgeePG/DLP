@@ -95,7 +95,7 @@ public class Ejecuta extends AbstractCodeFunction {
 	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(Return returnValue, Object param) {
-
+		line(returnValue);
 		valor(returnValue.getExpr());
 		
 		int totalVarSize=0;
@@ -119,7 +119,7 @@ public class Ejecuta extends AbstractCodeFunction {
 	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(OneExpr oneExpr, Object param) {
-
+		line(oneExpr);
 		valor(oneExpr.getExpr());
 
 		return null;
@@ -129,6 +129,7 @@ public class Ejecuta extends AbstractCodeFunction {
 	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(If ifValue, Object param) {
+		line(ifValue);
 		String elseLabel="else_block"+contadorUnico++;
 		String finLabel="if_end_label"+contadorUnico++;
 		
@@ -156,7 +157,7 @@ public class Ejecuta extends AbstractCodeFunction {
 	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(While whileValue, Object param) {
-
+		line(whileValue);
 		String startLabel = "while_start_" +contadorUnico++;
 	    String endLabel = "while_end_" +contadorUnico++;
 	    
@@ -193,7 +194,7 @@ public class Ejecuta extends AbstractCodeFunction {
 	// phase TypeChecking { Function padre }
 	@Override
 	public Object visit(StmtFunctionCall stmtFunctionCall, Object param) {
-
+		line(stmtFunctionCall);
 		if(stmtFunctionCall.getExprs().size()>0) {
 			for(Expr e:stmtFunctionCall.getExprs()) {
 				valor(e);

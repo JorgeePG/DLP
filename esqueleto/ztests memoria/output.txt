@@ -1,7 +1,33 @@
-<instruction>
-<instruction>
-<instruction>
-<instruction>
-<instruction>
-<instruction>
+#source "ztests memoria/Test Gestion de Memoria.txt"
+call main
 halt
+#global a:byte
+#type Persona: {
+edad:int
+meses:24 * int
+a:real
+}
+#global b:real
+#type Prueba: {
+campo1:int
+campo2:int
+}
+#global c:60 * Persona
+#global d:int
+f:
+#func f
+#param a:int
+#param b:real
+#param h:byte
+#local c:byte
+#local d:int
+#local e:60 * Persona
+#local f:real
+#ret void
+enter 67
+ret 0, 67, 7
+main:
+#func main
+#ret void
+enter 0
+ret 0, 0, 0
