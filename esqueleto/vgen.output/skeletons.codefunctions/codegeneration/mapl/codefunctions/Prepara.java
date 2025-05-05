@@ -32,8 +32,6 @@ public class Prepara extends AbstractCodeFunction {
 	@Override
 	public Object visit(VarDefinition varDefinition, Object param) {
 
-		// define(varDefinition.getDeclaracion());
-
 		out("<instruction>");
 
 		return null;
@@ -43,8 +41,6 @@ public class Prepara extends AbstractCodeFunction {
 	// phase MemoryAllocation { int address }
 	@Override
 	public Object visit(Function function, Object param) {
-
-		// define(function.parametros());
 
 		// prepara(function.variables());
 

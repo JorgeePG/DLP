@@ -27,7 +27,7 @@ import codegeneration.*;
  */
 
 public class Main {
-    public static final String TEST_FILE = "ztests memoria/Test Gestion de Memoria.txt"; // Used only in development
+    public static final String TEST_FILE = "EjemploClase13.txt"; // Used only in development
     public static final String OUTPUT_FILE = "output.txt";
 
     public static void main(String[] args) throws Exception {

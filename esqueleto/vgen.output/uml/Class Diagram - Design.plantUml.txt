@@ -105,11 +105,6 @@ class Return {
 Statement <|-[#808080]- Return
 Return o-[#404040,thickness=2]- "0..1" Expr : expr >
 
-class OneExpr {
-}
-Statement <|-[#808080]- OneExpr
-OneExpr o-[#404040,thickness=2]-  Expr : expr >
-
 class If {
 }
 Statement <|-[#808080]- If

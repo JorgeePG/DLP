@@ -36,8 +36,6 @@ public interface Visitor {
 
 	public Object visit(Return returnValue, Object param);
 
-	public Object visit(OneExpr oneExpr, Object param);
-
 	public Object visit(If ifValue, Object param);
 
 	public Object visit(While whileValue, Object param);

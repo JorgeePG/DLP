@@ -5,14 +5,10 @@
 
 package semantic;
 
-import java.beans.Statement;
-
-import org.antlr.v4.runtime.atn.SemanticContext.Operator;
-
-import ast.*;
+import ast.AST;
+import ast.Declaracion;
+import ast.Position;
 import ast.cuerpoprograma.Function;
-import ast.cuerpoprograma.StructDefinition;
-import ast.cuerpoprograma.VarDefinition;
 import ast.expr.ArrayAccess;
 import ast.expr.Cast;
 import ast.expr.CharLiteral;
@@ -28,7 +24,6 @@ import ast.expr.RealLiteral;
 import ast.expr.Variable;
 import ast.statement.Asignacion;
 import ast.statement.If;
-import ast.statement.OneExpr;
 import ast.statement.Print;
 import ast.statement.PrintLn;
 import ast.statement.PrintSp;

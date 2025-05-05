@@ -38,7 +38,6 @@ statement returns [Statement ast]
 	|'println' ceromuchasexpr ';'														{ $ast = new PrintLn($ceromuchasexpr.ast); }
 	| ex1=expr '=' ex2=expr ';' 														{ $ast = new Asignacion($ex1.ast, $ex2.ast); }
 	| 'return'(expr{$ex=$expr.ast;})? ';'												{ $ast = new Return($ex); }
-	| expr ';'																			{ $ast = new OneExpr($expr.ast); }
 	|'if' '('expr')' '{'st1=statements'}' ('else' '{'st2=statements{$st=$st2.ast;}'}')?	{ $ast = new If($expr.ast, $st1.ast, $st); }
 	|'while' '('expr')' '{'statements'}' 												{ $ast = new While($expr.ast, $statements.ast); }
 	|'read' expr ';' 																	{ $ast = new Read($expr.ast); }

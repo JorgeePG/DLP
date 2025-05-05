@@ -81,19 +81,6 @@ public class Ejecuta extends AbstractCodeFunction {
 		return null;
 	}
 
-	// class OneExpr(Expr expr)
-	// phase TypeChecking { Function padre }
-	@Override
-	public Object visit(OneExpr oneExpr, Object param) {
-
-		// valor(oneExpr.getExpr());
-		// direccion(oneExpr.getExpr());
-
-		out("<instruction>");
-
-		return null;
-	}
-
 	// class If(Expr condition, List<Statement> thenBlock, List<Statement> elseBlock)
 	// phase TypeChecking { Function padre }
 	@Override

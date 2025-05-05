@@ -2,8 +2,6 @@
 
 package codegeneration.mapl.codefunctions;
 
-import ast.Declaracion;
-import ast.cuerpoprograma.VarDefinition;
 import ast.expr.ArrayAccess;
 import ast.expr.Cast;
 import ast.expr.CharLiteral;
@@ -22,7 +20,6 @@ import ast.tipo.CharType;
 import ast.tipo.FloatType;
 import ast.tipo.IntType;
 import ast.tipo.Tipo;
-import ast.tipo.VoidType;
 import codegeneration.mapl.AbstractCodeFunction;
 import codegeneration.mapl.MaplCodeSpecification;
 

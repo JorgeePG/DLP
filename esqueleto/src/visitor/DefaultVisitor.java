@@ -101,13 +101,6 @@ public class DefaultVisitor implements Visitor {
 	}
 
 	@Override
-	public Object visit(OneExpr oneExpr, Object param) {
-
-		oneExpr.getExpr().accept(this, param);
-		return null;
-	}
-
-	@Override
 	public Object visit(If ifValue, Object param) {
 
 		ifValue.getCondition().accept(this, param);

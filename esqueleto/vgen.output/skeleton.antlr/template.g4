@@ -47,7 +47,6 @@ statement returns[Statement ast]
     | exprs+=expr*                        { $ast = new PrintLn($exprs); }                        
     | left=expr right=expr                { $ast = new Asignacion($left.ast, $right.ast); }      
     | expr?                               { $ast = new Return(($expr.ctx == null) ? null : $expr.ast); }
-    | expr                                { $ast = new OneExpr($expr.ast); }                     
     | expr thenBlock+=statement* elseBlock+=statement* { $ast = new If($expr.ast, $thenBlock, $elseBlock); }  
     | expr body+=statement*               { $ast = new While($expr.ast, $body); }                
     | expr                                { $ast = new Read($expr.ast); }                        

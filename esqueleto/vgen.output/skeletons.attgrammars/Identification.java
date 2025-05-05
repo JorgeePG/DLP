@@ -181,16 +181,6 @@ public class Identification extends DefaultVisitor {
 		return null;
 	}
 
-	// class OneExpr(Expr expr)
-	@Override
-	public Object visit(OneExpr oneExpr, Object param) {
-
-		// oneExpr.getExpr().accept(this, param);
-		super.visit(oneExpr, param);
-
-		return null;
-	}
-
 	// class If(Expr condition, List<Statement> thenBlock, List<Statement> elseBlock)
 	@Override
 	public Object visit(If ifValue, Object param) {

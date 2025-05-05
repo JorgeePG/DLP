@@ -83,12 +83,6 @@ public class ExceptionThrowerVisitor implements Visitor {
 	}
 
 	@Override
-	public Object visit(OneExpr oneExpr, Object param) {
-
-        throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(OneExpr)' has been invoked but it has not been implemented.");
-	}
-
-	@Override
 	public Object visit(If ifValue, Object param) {
 
         throw new UnsupportedOperationException("'ExceptionThrowerVisitor.visit(If)' has been invoked but it has not been implemented.");

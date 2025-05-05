@@ -21,7 +21,6 @@ printSp:statement -> expr*;
 printLn:statement -> expr*;
 asignacion:statement -> left:expr right:expr;
 return:statement -> expr?;
-oneExpr:statement -> expr;
 if:statement -> condition:expr thenBlock:statement* elseBlock:statement*; 
 while:statement -> condition:expr body:statement*;
 read:statement -> expr;
@@ -77,7 +76,6 @@ CODE SPECIFICATION Mapl
 
 run[program]
 prepara[cuerpoPrograma]
-define[declaracion]
 ejecuta[statement]
 valor[expr]
 direccion[expr]

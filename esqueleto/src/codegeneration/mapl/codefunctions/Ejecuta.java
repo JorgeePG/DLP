@@ -2,8 +2,6 @@
 
 package codegeneration.mapl.codefunctions;
 
-import java.util.List;
-import java.util.UUID;
 
 import ast.AST;
 import ast.Declaracion;
@@ -112,16 +110,6 @@ public class Ejecuta extends AbstractCodeFunction {
 			out("ret 0, "+totalVarSize+", "+totalParamSize);
 		}
 		
-		return null;
-	}
-
-	// class OneExpr(Expr expr)
-	// phase TypeChecking { Function padre }
-	@Override
-	public Object visit(OneExpr oneExpr, Object param) {
-		line(oneExpr);
-		valor(oneExpr.getExpr());
-
 		return null;
 	}
 

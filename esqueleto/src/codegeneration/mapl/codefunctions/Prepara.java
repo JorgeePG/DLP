@@ -84,7 +84,7 @@ public class Prepara extends AbstractCodeFunction {
 			return n.getNombre();
 		}else if(ArrayType.class.equals(tipo.getClass())) {
 			ArrayType a= (ArrayType)tipo;
-			return a.getSize()+ " * "+ sacaTipoMapl(a.getTipoBase());
+			return (a.getSize()/a.getTipoBase().getSize())+ " * "+ sacaTipoMapl(a.getTipoBase());
 		}
 		return "void";
 	}

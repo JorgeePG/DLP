@@ -220,17 +220,6 @@ public class MemoryAllocation extends DefaultVisitor {
 		return null;
 	}
 
-	// class OneExpr(Expr expr)
-	// phase TypeChecking { Function padre }
-	@Override
-	public Object visit(OneExpr oneExpr, Object param) {
-
-		// oneExpr.getExpr().accept(this, param);
-		super.visit(oneExpr, param);
-
-		return null;
-	}
-
 	// class If(Expr condition, List<Statement> thenBlock, List<Statement> elseBlock)
 	// phase TypeChecking { Function padre }
 	@Override
