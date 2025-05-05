@@ -200,7 +200,9 @@ public class Ejecuta extends AbstractCodeFunction {
 			}
 		}
 		out("call "+stmtFunctionCall.getNombre());
-
+		if(!stmtFunctionCall.getFunction().getTipoRetorno().getClass().equals(VoidType.class)) {
+			out("pop"+getFormatTipo(stmtFunctionCall.getFunction().getTipoRetorno()));
+		}
 		return null;
 	}
 	

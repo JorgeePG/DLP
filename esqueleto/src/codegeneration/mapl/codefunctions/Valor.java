@@ -150,6 +150,7 @@ public class Valor extends AbstractCodeFunction {
 			}
 		}
 		out("call "+functionCall.getNombre());
+		
 
 		return null;
 	}
@@ -196,9 +197,27 @@ public class Valor extends AbstractCodeFunction {
 	// phase TypeChecking { Tipo type, boolean lvalue }
 	@Override
 	public Object visit(CharLiteral charLiteral, Object param) {
-		char caracter = charLiteral.getName().charAt(1);
-		byte byteVal = (byte) caracter; // Convierte el char a byte (1 byte)
+		byte byteVal;
+		String name = charLiteral.getName();
+
+		// Elimina las comillas simples
+		String charContent = name.substring(1, name.length() - 1);
+
+		char caracter = switch (charContent) {
+		    case "\\n" -> '\n';
+		    case "\\t" -> '\t';
+		    case "\\r" -> '\r';
+		    case "\\b" -> '\b';
+		    case "\\f" -> '\f';
+		    case "\\'" -> '\'';
+		    case "\\\"" -> '\"';
+		    case "\\\\" -> '\\';
+		    default -> charContent.charAt(0); // Si no es escape, se asume literal
+		};
+
+		byteVal = (byte) caracter;
 		out("pushb " + byteVal);
+		
 		return null;
 	}
 
